@@ -4,6 +4,10 @@ Ext.define('TrxResearch.model.Record', {
     statics: {
         getStatusName: function(status) {
             return this.prototype.statusNames[status];
+        },
+
+        getTxnMtiName: function(txnMti) {
+            return this.prototype.txnMtiNames[txnMti];
         }
     },
 
@@ -95,8 +99,16 @@ Ext.define('TrxResearch.model.Record', {
     ],
 
     statusNames: {
-        '0': 'Pending',
-        '1': 'Open',
-        '2': 'Closed'
+        '0': '0'
+    },
+
+    txnMtiNames: {
+        '0100': 'Authorization (0100)',
+        '0120': 'Advice (0120)',
+        '0200': '0200',
+        '0400': 'Reversal (0400)',
+        '0401': '0401',
+        '0420': 'Reversal Advice (0420)',
+        '0600': '0600'
     }
 });

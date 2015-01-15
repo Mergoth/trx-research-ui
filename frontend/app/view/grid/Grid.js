@@ -28,49 +28,58 @@ Ext.define("TrxResearch.view.grid.Grid",{
             sortable: false
         },
         items:[{
-            dataIndex: 'recordId',
-            text: 'Record Id',
+            dataIndex: 'txnMti',
+            text: 'Тип операции',
+            renderer: 'renderTxnMti',
             hidden: false
+        }, {
+            dataIndex: 'txnF63_2',
+            text: 'Идентификатор операции в НСПК',
+            flex: 2,
+            hidden: false
+        }, {
+            dataIndex: 'txnF38',
+            text: 'Код авторизации',
+            hidden: false
+        }, {
+            dataIndex: 'txnF2',
+            text: 'ICA Эмитента',
+            renderer: 'renderEmitentIca',
+            hidden: false
+        }, {
+            dataIndex: 'txnF32',
+            text: 'ICA Эквайрера',
+            hidden: false
+        }, {
+            dataIndex: 'recordId',
+            text: 'Record Id'
         }, {
             dataIndex: 'envId',
-            text: 'Env Id',
-            hidden: false
+            text: 'Env Id'
         }, {
             dataIndex: 'envTimeIn',
-            text: 'Env Time In',
-            hidden: false
+            text: 'Env Time In'
         }, {
             dataIndex: 'safPlanId',
-            text: 'Saf Plan Id',
-            hidden: false
-        }, {
-            dataIndex: 'txnMti',
-            text: 'Txn Mti',
-            hidden: false
+            text: 'Saf Plan Id'
         }, {
             dataIndex: 'issuerBin',
-            text: 'Issuer Bin',
-            hidden: false
+            text: 'Issuer Bin'
         }, {
             dataIndex: 'issuerId',
-            text: 'Issuer Id',
-            hidden: false
+            text: 'Issuer Id'
         }, {
             dataIndex: 'serviceCode',
-            text: 'Service Code',
-            hidden: false
+            text: 'Service Code'
         }, {
             dataIndex: 'eciInd',
-            text: 'Eci Ind',
-            hidden: false
+            text: 'Eci Ind'
         }, {
             dataIndex: 'ucafInd',
-            text: 'Ucaf Ind',
-            hidden: false
+            text: 'Ucaf Ind'
         }, {
             dataIndex: 'pinInd',
-            text: 'Pin Ind',
-            hidden: false
+            text: 'Pin Ind'
         }, {
             dataIndex: 'inGateId',
             text: 'InGate Id'
@@ -98,8 +107,7 @@ Ext.define("TrxResearch.view.grid.Grid",{
         }, {
             dataIndex: 'exportStatus',
             text: 'Export Status',
-            renderer: 'renderStatus',
-            hidden: false
+            renderer: 'renderStatus'
         }, {
             dataIndex: 'txnF1',
             text: 'txnF1'
@@ -194,9 +202,6 @@ Ext.define("TrxResearch.view.grid.Grid",{
             dataIndex: 'txnF31',
             text: 'txnF31'
         }, {
-            dataIndex: 'txnF32',
-            text: 'txnF32'
-        }, {
             dataIndex: 'txnF33',
             text: 'txnF33'
         }, {
@@ -211,9 +216,6 @@ Ext.define("TrxResearch.view.grid.Grid",{
         }, {
             dataIndex: 'txnF37',
             text: 'txnF37'
-        }, {
-            dataIndex: 'txnF38',
-            text: 'txnF38'
         }, {
             dataIndex: 'txnF39',
             text: 'txnF39'
@@ -286,9 +288,6 @@ Ext.define("TrxResearch.view.grid.Grid",{
         }, {
             dataIndex: 'txnF62_2',
             text: 'txnF62_2'
-        }, {
-            dataIndex: 'txnF63_2',
-            text: 'txnF63_2'
         }]
     }
 });
