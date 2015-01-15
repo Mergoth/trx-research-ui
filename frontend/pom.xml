@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>su.msk.jet.nspk</groupId>
+        <artifactId>trx-research-ui-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath></relativePath>
+    </parent>
+
+    <groupId>su.msk.jet.nspk</groupId>
+    <artifactId>trx-research-ui-frontend</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <name>NSPK TRX Research UI Frontend</name>
+
+    <properties>
+        <!-- Контекст WEB-приложения (базовый URL приложения на сервере) -->
+        <web.context.path>trx-research</web.context.path>
+                
+        <!-- Каталог в build/production -->
+        <sencha.app.dir>TrxResearch</sencha.app.dir>
+        
+        <sencha.cmd.target>${sencha.workspace}/build</sencha.cmd.target>
+        <sencha.cmd.version>5.1.0.13</sencha.cmd.version>
+        <sencha.cmd.dir>${sencha.cmd.home}/${sencha.cmd.version}</sencha.cmd.dir>
+        <cmd.dir>${sencha.cmd.dir}</cmd.dir>
+    </properties>
+    
+    <build>
+        <plugins>
+            <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>1.7</version>
+                    <executions>
+                        <execution>
+                            <id>sencha-app-build</id>
+                            <phase>process-resources</phase>
+                            <configuration>
+                                <target>                                 
+                                    <taskdef resource="com/sencha/ant/antlib.xml" classpath="${cmd.dir}/sencha.jar" loaderref="senchaloader" />
+                                    <x-extend-classpath>
+                                        <jar path="${cmd.dir}/sencha.jar"/>
+                                    </x-extend-classpath>
+                                    <x-sencha-init />
+                                    <x-sencha-command dir="${basedir}">
+                                        app
+                                        build
+                                    </x-sencha-command>
+                                </target>
+                            </configuration>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                
+                <!-- Requires ${web.context.path} property -->
+                <plugin>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>maven-bundle-plugin</artifactId>
+                    <version>2.3.7</version>
+                    <executions>
+                        <execution>
+                            <id>generate-manifest</id>
+                            <phase>process-classes</phase>
+                            <goals>
+                                <goal>manifest</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <supportedProjectTypes>
+                            <supportedProjectType>jar</supportedProjectType>
+                            <supportedProjectType>bundle</supportedProjectType>
+                            <supportedProjectType>war</supportedProjectType>
+                        </supportedProjectTypes>
+                        <instructions>
+                            <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+                            <Bundle-Version>${project.version}</Bundle-Version>
+                            <Bundle-ClassPath>.,WEB-INF/classes</Bundle-ClassPath>
+                            <Web-ContextPath>${web.context.path}</Web-ContextPath>
+                        </instructions>
+                    </configuration>
+                </plugin>
+                
+                <!-- Requires ${sencha.app.dir} property -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>2.3</version>
+                    <configuration>
+                        <webResources>
+                            <resource>
+                                <directory>${sencha.cmd.target}/production/${sencha.app.dir}</directory>
+                            </resource>
+                        </webResources>
+                        <archive>
+                            <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                        </archive>
+                        <failOnMissingWebXml>false</failOnMissingWebXml>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>1.7</version>
+                    <executions>
+                        <execution>
+                            <id>timestamp-property</id>
+                            <goals>
+                                <goal>timestamp-property</goal>
+                            </goals>
+                            <configuration>
+                                <name>last.modified</name>
+                                <pattern>EEE, dd MMM yyyy HH:mm:ss zzz</pattern>
+                                <locale>en_US</locale>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>                
+        </plugins>
+    </build>
+
+</project>

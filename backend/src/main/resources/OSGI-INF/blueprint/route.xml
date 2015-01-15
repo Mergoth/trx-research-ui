@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+           xsi:schemaLocation="
+           http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+           http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0 http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.1.0.xsd
+           http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+
+    <cm:property-placeholder persistent-id="su.msk.jet.nspk" update-strategy="reload">
+        <cm:default-properties>
+            <cm:property name="nspk-search-service.host" value="localhost"/>
+            <cm:property name="nspk-search-service.port" value="8181"/>
+            <cm:property name="nspk-search-service.ctx" value="/cxf/searchService/onlineLog"/>
+        </cm:default-properties>
+    </cm:property-placeholder>
+    
+     <!--to setup camel servlet with OSGi HttpService--> 
+    <reference id="httpService" interface="org.osgi.service.http.HttpService"/>
+    
+    <bean id="camelServlet" class="org.apache.camel.component.servlet.CamelHttpTransportServlet"/>
+
+    <bean class="org.apache.camel.component.servlet.osgi.OsgiServletRegisterer" init-method="register" destroy-method="unregister">
+        <property name="alias" value="/proxy"/>
+        <property name="httpService" ref="httpService"/>
+        <property name="servlet" ref="camelServlet"/>
+        <property name="servletName" value="CamelServlet"/>
+    </bean>
+
+     <!--CAMEL--> 
+    <camelContext id="trxresearch-ui-backend-context" xmlns="http://camel.apache.org/schema/blueprint">
+        <route id="trxresearch-ui-backend-route">
+            <from uri="servlet:///searchService?servletName=CamelServlet&amp;matchOnUriPrefix=true"/>
+            <log loggingLevel="INFO" logName="su.msk.jet.nspk" message="trxresearch-ui-backend-route -> done"/>
+            <to uri="http://{{nspk-search-service.host}}:{{nspk-search-service.port}}{{nspk-search-service.ctx}}?bridgeEndpoint=true&amp;throwExceptionOnFailure=false"/> 
+        </route>
+    </camelContext>
+</blueprint>

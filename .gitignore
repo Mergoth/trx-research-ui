@@ -1,0 +1,10 @@
+*/bootstrap.css
+*/bootstrap.js
+*/bootstrap.json
+*/target/
+*/.settings
+*/.project
+*/.classpath
+*/nohup.out
+*/.idea/
+*.iml
