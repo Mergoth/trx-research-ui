@@ -16,6 +16,8 @@ Ext.define('TrxResearch.view.search.Search', {
 
     layout: 'vbox',
 
+    bodyPadding: '20 10 0 10',
+
     defaults: {
         xtype: 'form',
         flex: 1,

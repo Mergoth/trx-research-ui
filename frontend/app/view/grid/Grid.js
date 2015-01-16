@@ -17,277 +17,151 @@ Ext.define("TrxResearch.view.grid.Grid",{
     bind: '{records}',
 
     tbar: [{
-        text: 'Search',
-        handler: 'onSearchClick'
+        text: 'Поиск',
+        handler: 'onSearchClick',
+        ui: 'default'
+    }],
+
+    plugins: [{
+        ptype: 'rowexpander',
+        expandOnDblClick: false,
+        rowBodyTpl: new Ext.XTemplate(
+        '<table width="100%"><tr>',
+            '<td width="25%"><b>Record ID:</b> {recordId}</td>',
+            '</tr>','<tr>',
+            '<td width="25%"><b>DE2:</b> {txnF2}</td>',
+            '<td width="25%"><b>DE22:</b> {txnF22}</td>',
+            '<td width="25%"><b>DE45:</b> {txnF45}</td>',
+            '<td width="25%"><b>Service Code:</b> {serviceCode}</td>',
+            '</tr>','<tr>',
+            '<td width="25%"><b>DE3:</b> {txnF3}</td>',
+            '<td width="25%"><b>DE23:</b> {txnF23}</td>',
+            '<td width="25%"><b>DE48:</b> {txnF48}</td>',
+            '<td width="25%"><b>ECI Indicator:</b> {eciInd}</td>',
+            '</tr>','<tr>',
+            '<td width="25%"><b>DE4:</b> {txnF4}</td>',
+            '<td width="25%"><b>DE25:</b> {txnF25}</td>',
+            '<td width="25%"><b>DE49:</b> {txnF49}</td>',
+            '<td width="25%"><b>UCAF Indicator:</b> {ucafInd}</td>',
+            '</tr>','<tr>',
+            '<td width="25%"><b>DE5:</b> {txnF5}</td>',
+            '<td width="25%"><b>DE28:</b> {txnF28}</td>',
+            '<td width="25%"><b>DE50:</b> {txnF50}</td>',
+            '<td width="25%"><b>PIN Indicator:</b> {pinInd}</td>',
+            '</tr>','<tr>',
+            '<td width="25%"><b>DE6:</b> {txnF6}</td>',
+            '<td width="25%"><b>DE32:</b> {txnF32}</td>',
+            '<td width="25%"><b>DE51:</b> {txnF51}</td>',
+            '<td width="25%"><b>In-Gate ID:</b> {inGateId}</td>',
+            '</tr>','<tr>',
+            '<td width="25%"><b>DE7:</b> {txnF7}</td>',
+            '<td width="25%"><b>DE33:</b> {txnF33}</td>',
+            '<td width="25%"><b>DE52:</b> {txnF52}</td>',
+            '<td width="25%"><b>Out-Gate ID:</b> {outGateId}</td>',
+            '</tr>','<tr>',
+            '<td width="25%"><b>DE9:</b> {txnF9}</td>',
+            '<td width="25%"><b>DE35:</b> {txnF35}</td>',
+            '<td width="25%"><b>DE53:</b> {txnF53}</td>',
+            '<td width="25%"><b>In-Node ID:</b> {inNodeId}</td>',
+            '</tr>','<tr>',
+            '<td width="25%"><b>DE10:</b> {txnF10}</td>',
+            '<td width="25%"><b>DE37:</b> {txnF37}</td>',
+            '<td width="25%"><b>DE55:</b> {txnF55}</td>',
+            '<td width="25%"><b>Out-Node ID:</b> {outNodeId}</td>',
+            '</tr>','<tr>',
+            '<td width="25%"><b>DE12:</b> {txnF12}</td>',
+            '<td width="25%"><b>DE38:</b> {txnF38}</td>',
+            '<td width="25%"><b>DE60:</b> {txnF60}</td>',
+            '<td width="25%"><b>In-Gate ID:</b> {inGateId}</td>',
+            '</tr>','<tr>',
+            '<td width="25%"><b>DE13:</b> {txnF13}</td>',
+            '<td width="25%"><b>DE39:</b> {txnF39}</td>',
+            '<td width="25%"><b>DE61:</b> {txnF61}</td>',
+            '<td width="25%"><b>In-Gate Time-In:</b> {inGateTimeIn}</td>',
+            '</tr>','<tr>',
+            '<td width="25%"><b>DE14:</b> {txnF14}</td>',
+            '<td width="25%"><b>DE41:</b> {txnF41}</td>',
+            '<td width="25%"><b>DE62 subfield 2:</b> {txnF62_2}</td>',
+            '<td width="25%"><b>In-Gate Time-Out:</b> {inGateTimeOut}</td>',
+            '</tr>','<tr>',
+            '<td width="25%"><b>DE15:</b> {txnF15}</td>',
+            '<td width="25%"><b>DE42:</b> {txnF42}</td>',
+            '<td width="25%"><b>DE63 subfield 2:</b> {txnF63_2}</td>',
+            '<td width="25%"><b>Out-Gate Time-In:</b> {outGateTimeIn}</td>',
+            '</tr>','<tr>',
+            '<td width="25%"><b>DE16:</b> {txnF16}</td>',
+            '<td width="25%"><b>DE43:</b> {txnF43}</td>',
+            '<td width="25%"><b>Issuer BIN:</b> {issuerBin}</td>',
+            '<td width="25%"><b>Out-Gate Time-Out:</b> {outGateTimeOut}</td>',
+            '</tr>','<tr>',
+            '<td width="25%"><b>DE18:</b> {txnF18}</td>',
+            '<td width="25%"><b>DE44:</b> {txnF44}</td>',
+            '<td width="25%"><b>Issuer ID:</b> {issuerId}</td>',
+            '<td width="25%"><b>Export Status:</b> {exportStatus}</td>',
+            '</tr>','<tr>',
+        '</tr></table>'
+        )
     }],
 
     columns: {
         defaults: {
-            flex: 1,
-            hidden: true,
             sortable: false
         },
         items:[{
             dataIndex: 'txnMti',
             text: 'Тип операции',
             renderer: 'renderTxnMti',
-            hidden: false
+            flex: 1
         }, {
             dataIndex: 'txnF63_2',
-            text: 'Идентификатор операции в НСПК',
-            flex: 2,
-            hidden: false
+            text: 'ID операции в НСПК',
+            flex: 1
+        }, {
+            dataIndex: 'txnF37',
+            text: 'RRN',
+            flex: 1
+        }, {
+            dataIndex: 'txnF2',
+            text: 'Номер карты',
+            flex: null,
+            width: 160
+        }, {
+            dataIndex: 'txnF7',
+            text: 'Дата и время',
+            flex: 1
+        }, {
+            dataIndex: 'txnF4',
+            text: 'Сумма',
+            flex: 1
+        }, {
+            dataIndex: 'txnF49',
+            text: 'Валюта',
+            flex: 1
+        }, {
+            dataIndex: 'txnF22',
+            text: 'POS Entry Mode',
+            flex: 1
+        }, {
+            dataIndex: 'txnF18',
+            text: 'MCC',
+            flex: 1
+        }, {
+            dataIndex: 'txnF39',
+            text: 'Код ответа',
+            flex: 1
         }, {
             dataIndex: 'txnF38',
             text: 'Код авторизации',
-            hidden: false
+            flex: 1
         }, {
             dataIndex: 'txnF2',
             text: 'ICA Эмитента',
             renderer: 'renderEmitentIca',
-            hidden: false
+            flex: 1
         }, {
             dataIndex: 'txnF32',
             text: 'ICA Эквайрера',
-            hidden: false
-        }, {
-            dataIndex: 'recordId',
-            text: 'Record Id'
-        }, {
-            dataIndex: 'envId',
-            text: 'Env Id'
-        }, {
-            dataIndex: 'envTimeIn',
-            text: 'Env Time In'
-        }, {
-            dataIndex: 'safPlanId',
-            text: 'Saf Plan Id'
-        }, {
-            dataIndex: 'issuerBin',
-            text: 'Issuer Bin'
-        }, {
-            dataIndex: 'issuerId',
-            text: 'Issuer Id'
-        }, {
-            dataIndex: 'serviceCode',
-            text: 'Service Code'
-        }, {
-            dataIndex: 'eciInd',
-            text: 'Eci Ind'
-        }, {
-            dataIndex: 'ucafInd',
-            text: 'Ucaf Ind'
-        }, {
-            dataIndex: 'pinInd',
-            text: 'Pin Ind'
-        }, {
-            dataIndex: 'inGateId',
-            text: 'InGate Id'
-        }, {
-            dataIndex: 'outGateId',
-            text: 'OutGate Id'
-        }, {
-            dataIndex: 'inNodeId',
-            text: 'InNode Id'
-        }, {
-            dataIndex: 'outNodeId',
-            text: 'OutNode Id'
-        }, {
-            dataIndex: 'inGateTimeIn',
-            text: 'InGate Time In'
-        }, {
-            dataIndex: 'inGateTimeOut',
-            text: 'InGate Time Out'
-        }, {
-            dataIndex: 'outGateTimeIn',
-            text: 'OutGate Time In'
-        }, {
-            dataIndex: 'outGateTimeOut',
-            text: 'OutGate Time Out'
-        }, {
-            dataIndex: 'exportStatus',
-            text: 'Export Status',
-            renderer: 'renderStatus'
-        }, {
-            dataIndex: 'txnF1',
-            text: 'txnF1'
-        }, {
-            dataIndex: 'txnF2',
-            text: 'txnF2'
-        }, {
-            dataIndex: 'txnF3',
-            text: 'txnF3'
-        }, {
-            dataIndex: 'txnF4',
-            text: 'txnF4'
-        }, {
-            dataIndex: 'txnF5',
-            text: 'txnF5'
-        }, {
-            dataIndex: 'txnF6',
-            text: 'txnF6'
-        }, {
-            dataIndex: 'txnF7',
-            text: 'txnF7'
-        }, {
-            dataIndex: 'txnF8',
-            text: 'txnF8'
-        }, {
-            dataIndex: 'txnF9',
-            text: 'txnF9'
-        }, {
-            dataIndex: 'txnF10',
-            text: 'txnF10'
-        }, {
-            dataIndex: 'txnF11',
-            text: 'txnF11'
-        }, {
-            dataIndex: 'txnF12',
-            text: 'txnF12'
-        }, {
-            dataIndex: 'txnF13',
-            text: 'txnF13'
-        }, {
-            dataIndex: 'txnF14',
-            text: 'txnF14'
-        }, {
-            dataIndex: 'txnF15',
-            text: 'txnF15'
-        }, {
-            dataIndex: 'txnF16',
-            text: 'txnF16'
-        }, {
-            dataIndex: 'txnF17',
-            text: 'txnF17'
-        }, {
-            dataIndex: 'txnF18',
-            text: 'txnF18'
-        }, {
-            dataIndex: 'txnF19',
-            text: 'txnF19'
-        }, {
-            dataIndex: 'txnF20',
-            text: 'txnF20'
-        }, {
-            dataIndex: 'txnF21',
-            text: 'txnF21'
-        }, {
-            dataIndex: 'txnF22',
-            text: 'txnF22'
-        }, {
-            dataIndex: 'txnF23',
-            text: 'txnF23'
-        }, {
-            dataIndex: 'txnF24',
-            text: 'txnF24'
-        }, {
-            dataIndex: 'txnF25',
-            text: 'txnF25'
-        }, {
-            dataIndex: 'txnF26',
-            text: 'txnF26'
-        }, {
-            dataIndex: 'txnF27',
-            text: 'txnF27'
-        }, {
-            dataIndex: 'txnF28',
-            text: 'txnF28'
-        }, {
-            dataIndex: 'txnF29',
-            text: 'txnF29'
-        }, {
-            dataIndex: 'txnF30',
-            text: 'txnF30'
-        }, {
-            dataIndex: 'txnF31',
-            text: 'txnF31'
-        }, {
-            dataIndex: 'txnF33',
-            text: 'txnF33'
-        }, {
-            dataIndex: 'txnF34',
-            text: 'txnF34'
-        }, {
-            dataIndex: 'txnF35',
-            text: 'txnF35'
-        }, {
-            dataIndex: 'txnF36',
-            text: 'txnF36'
-        }, {
-            dataIndex: 'txnF37',
-            text: 'txnF37'
-        }, {
-            dataIndex: 'txnF39',
-            text: 'txnF39'
-        }, {
-            dataIndex: 'txnF40',
-            text: 'txnF40'
-        }, {
-            dataIndex: 'txnF41',
-            text: 'txnF41'
-        }, {
-            dataIndex: 'txnF42',
-            text: 'txnF42'
-        }, {
-            dataIndex: 'txnF43',
-            text: 'txnF43'
-        }, {
-            dataIndex: 'txnF44',
-            text: 'txnF44'
-        }, {
-            dataIndex: 'txnF45',
-            text: 'txnF45'
-        }, {
-            dataIndex: 'txnF46',
-            text: 'txnF46'
-        }, {
-            dataIndex: 'txnF47',
-            text: 'txnF47'
-        }, {
-            dataIndex: 'txnF48',
-            text: 'txnF48'
-        }, {
-            dataIndex: 'txnF49',
-            text: 'txnF49'
-        }, {
-            dataIndex: 'txnF50',
-            text: 'txnF50'
-        }, {
-            dataIndex: 'txnF51',
-            text: 'txnF51'
-        }, {
-            dataIndex: 'txnF52',
-            text: 'txnF52'
-        }, {
-            dataIndex: 'txnF53',
-            text: 'txnF53'
-        }, {
-            dataIndex: 'txnF54',
-            text: 'txnF54'
-        }, {
-            dataIndex: 'txnF55',
-            text: 'txnF55'
-        }, {
-            dataIndex: 'txnF56',
-            text: 'txnF56'
-        }, {
-            dataIndex: 'txnF57',
-            text: 'txnF57'
-        }, {
-            dataIndex: 'txnF58',
-            text: 'txnF58'
-        }, {
-            dataIndex: 'txnF59',
-            text: 'txnF59'
-        }, {
-            dataIndex: 'txnF60',
-            text: 'txnF60'
-        }, {
-            dataIndex: 'txnF61',
-            text: 'txnF61'
-        }, {
-            dataIndex: 'txnF62_2',
-            text: 'txnF62_2'
+            flex: 1
         }]
     }
 });

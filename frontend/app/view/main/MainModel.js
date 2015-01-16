@@ -7,7 +7,7 @@ Ext.define('TrxResearch.view.main.MainModel', {
     alias: 'viewmodel.main',
 
     data: {
-        title: 'TRX Research',
+        title: 'Transaction Research',
 
         txnF2: null,
         txnF7Begin: null,

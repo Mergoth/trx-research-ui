@@ -16,23 +16,27 @@ Ext.define('TrxResearch.view.main.Main', {
         type: 'main'
     },
 
-    bind: {
-        title: '{title}'
-    },
-
     layout: {
         type: 'border'
     },
 
     border: true,
 
-    items: [
-        {
+    items: [{
+        xtype: 'trxresearch-header',
+        region: 'north'
+    }, {
+        xtype: 'panel',
+        region: 'center',
+        layout: {
+            type: 'border'
+        },
+        items: [{
             xtype: 'trxresearch-search',
             region: 'north'
-        }
-        ,{
+        } ,{
             xtype: 'trxresearch-grid',
             region: 'center'
         }]
+    }]
 });
