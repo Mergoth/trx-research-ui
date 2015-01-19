@@ -6,9 +6,7 @@
 Ext.application({
     name: 'TrxResearch',
 
-    extend: 'TrxResearch.Application',
-    
-    autoCreateViewport: 'TrxResearch.view.main.Main'
+    extend: 'TrxResearch.Application'
 	
     //-------------------------------------------------------------------------
     // Most customizations should be made to TrxResearch.Application. If you need to

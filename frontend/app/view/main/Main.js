@@ -2,7 +2,7 @@
  *
  */
 Ext.define('TrxResearch.view.main.Main', {
-    extend: 'Ext.panel.Panel',
+    extend: 'Ext.container.Viewport',
     requires: [
         'TrxResearch.view.main.MainController',
         'TrxResearch.view.main.MainModel'
