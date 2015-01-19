@@ -1,7 +1,5 @@
 /**
- * This class is the main view for the application. It is specified in app.js as the
- * "autoCreateViewport" property. That setting automatically applies the "viewport"
- * plugin to promote that instance of this class to the body element.
+ *
  */
 Ext.define('TrxResearch.view.main.Main', {
     extend: 'Ext.panel.Panel',
@@ -26,17 +24,47 @@ Ext.define('TrxResearch.view.main.Main', {
         xtype: 'trxresearch-header',
         region: 'north'
     }, {
-        xtype: 'panel',
+        xtype: 'tabpanel',
         region: 'center',
-        layout: {
-            type: 'border'
+        ui: 'navigation',
+        headerPosition: 'left',
+        header: {
+            title: {
+                hidden: true
+            },
+            layout: {
+                align: 'stretchmax'
+            }
+        },
+        tabBarHeaderPosition: 0,
+        titleRotation: 0,
+        tabRotation: 0,
+        tabBar: {
+            flex: 1,
+            layout: {
+                align: 'stretch',
+                overflowHandler: 'none'
+            }
         },
         items: [{
-            xtype: 'trxresearch-search',
-            region: 'north'
-        } ,{
-            xtype: 'trxresearch-grid',
-            region: 'center'
+            xtype: 'panel',
+            title: 'Авторизации',
+            layout: {
+                type: 'border'
+            },
+            items: [{
+                xtype: 'trxresearch-search',
+                region: 'north'
+            }, {
+                xtype: 'trxresearch-grid',
+                region: 'center'
+            }]
+        },{
+            xtype: 'panel',
+            title: 'Клиринг'
+        },{
+            xtype: 'panel',
+            title: 'История запросов'
         }]
     }]
 });
