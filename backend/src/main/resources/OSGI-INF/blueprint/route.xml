@@ -15,6 +15,9 @@
         </cm:default-properties>
     </cm:property-placeholder>
     
+    <bean id="credentialsSaver" class="su.msk.jet.nspk.session.CredentialsSaver"/>
+    <bean id="credentialsApplier" class="su.msk.jet.nspk.session.CredentialsApplier"/>
+    
      <!--to setup camel servlet with OSGi HttpService--> 
     <reference id="httpService" interface="org.osgi.service.http.HttpService"/>
     
@@ -29,8 +32,18 @@
 
      <!--CAMEL--> 
     <camelContext id="trxresearch-ui-backend-context" xmlns="http://camel.apache.org/schema/blueprint">
-        <route id="trxresearch-ui-backend-route">
+        <route id="trxresearch-ui-backend-authenticate-route">
+            <from uri="servlet:///authenticate?servletName=CamelServlet&amp;matchOnUriPrefix=true"/>
+            <process ref="credentialsSaver" />
+            <log loggingLevel="INFO" logName="su.msk.jet.nspk" message="trxresearch-ui-backend-authenticate=route -> done"/>
+            <marshal>
+                <json library="Jackson" unmarshalTypeName="su.msk.jet.nspk.model.User"/>
+            </marshal>
+        </route>
+    
+        <route id="trxresearch-ui-backend-proxy-route">
             <from uri="servlet:///searchService?servletName=CamelServlet&amp;matchOnUriPrefix=true"/>
+            <process ref="credentialsApplier" />
             <log loggingLevel="INFO" logName="su.msk.jet.nspk" message="trxresearch-ui-backend-route -> done"/>
             <to uri="http://{{nspk-search-service.host}}:{{nspk-search-service.port}}{{nspk-search-service.ctx}}?bridgeEndpoint=true&amp;throwExceptionOnFailure=false"/> 
         </route>

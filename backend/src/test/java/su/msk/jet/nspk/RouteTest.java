@@ -41,4 +41,15 @@ public class RouteTest extends CamelBlueprintTestSupport {
 
         assertMockEndpointsSatisfied();
     }
+    
+   
+    @Test
+    public void testCredentials() throws Exception {
+        getMockEndpoint("mock:end").expectedMessageCount(1);
+        getMockEndpoint("mock:end").expectedBodiesReceived("{\"name\":\"test1\"}");
+
+        template.sendBody("http:localhost:8080/authenticate?username=test1&password=test2", "");
+
+        assertMockEndpointsSatisfied();
+    }
 }

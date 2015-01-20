@@ -15,19 +15,33 @@
         </cm:default-properties>
     </cm:property-placeholder>
 
+    <bean id="credentialsSaver" class="su.msk.jet.nspk.session.CredentialsSaver"/>
+    <bean id="credentialsApplier" class="su.msk.jet.nspk.session.CredentialsApplier"/>
+    
     <camelContext id="trxresearch-ui-backend-context" xmlns="http://camel.apache.org/schema/blueprint">
         
-        <route id="trxresearch-ui-backend-route-test-end">
+        <route id="trxresearch-ui-backend-proxy-route-test-end">
             <from uri="direct:start"/>
-            <log loggingLevel="INFO" logName="test" message="trxresearch-ui-backend-route -> done"/>
+            <log loggingLevel="INFO" logName="test" message="trxresearch-ui-backend-proxy-route -> done"/>
             <inOnly uri="http://{{nspk-search-service.host}}:{{nspk-search-service.port}}{{nspk-search-service.ctx}}?bridgeEndpoint=true&amp;throwExceptionOnFailure=false"/>
         </route>
                         
-        <route id="trxresearch-ui-backend-route-test-start">
-            <from uri="jetty://http://localhost:8080/searchService?matchOnUriPrefix=true"/>
-            <log loggingLevel="INFO" logName="test" message="trxresearch-ui-backend-route -> done"/>
+        <route id="trxresearch-ui-backend-proxy-route-test-start">
+            <from uri="jetty://http://localhost:8080/searchService?matchOnUriPrefix=true&amp;sessionSupport=true"/>
+            <process ref="credentialsApplier" />
+            <log loggingLevel="INFO" logName="test" message="trxresearch-ui-backend-proxy-route -> done"/>            
             <inOnly uri="mock:end"/>
         </route>
+        
+        <route id="trxresearch-ui-backend-authenticate-route-test">
+            <from uri="jetty://http://localhost:8080/authenticate?sessionSupport=true&amp;sessionSupport=true"/>
+            <process ref="credentialsSaver" />
+            <log loggingLevel="INFO" logName="test" message="trxresearch-ui-backend-authenticate-route -> done"/>
+            <marshal>
+                <json library="Jackson" unmarshalTypeName="su.msk.jet.nspk.model.User"/>
+            </marshal>
+            <inOnly uri="mock:end"/>
+        </route>        
         
     </camelContext>
     
