@@ -45,7 +45,7 @@
             <from uri="servlet:///searchService?servletName=CamelServlet&amp;matchOnUriPrefix=true"/>
             <process ref="credentialsApplier" />
             <log loggingLevel="INFO" logName="su.msk.jet.nspk" message="trxresearch-ui-backend-route -> done"/>
-            <to uri="http://{{nspk-search-service.host}}:{{nspk-search-service.port}}{{nspk-search-service.ctx}}?authMethod=Basic&amp;authUsername=${header.NspkSearchServiceUsername}&amp;authPassword=${header.NspkSearchServicePassword}&amp;bridgeEndpoint=true&amp;throwExceptionOnFailure=false"/> 
+            <to uri="http://{{nspk-search-service.host}}:{{nspk-search-service.port}}{{nspk-search-service.ctx}}?authMethod=Basic&amp;authUsername=${header.NspkSearchServiceUsername}&amp;authPassword=${header.NspkSearchServicePassword}&amp;httpClient.authenticationPreemptive=true&amp;bridgeEndpoint=true&amp;throwExceptionOnFailure=false"/> 
         </route>
     </camelContext>
 </blueprint>
