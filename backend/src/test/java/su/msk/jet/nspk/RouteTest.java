@@ -1,6 +1,10 @@
 package su.msk.jet.nspk;
 
+import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.test.blueprint.CamelBlueprintTestSupport;
 import org.junit.Test;
 import org.osgi.framework.BundleContext;
@@ -37,7 +41,12 @@ public class RouteTest extends CamelBlueprintTestSupport {
         });
         getMockEndpoint("mock:http:localhost:8181/cxf/searchService/onlineLog").expectedMessageCount(1);
 
-        template.sendBody("direct:start", "");
+        CamelContext ctx = new DefaultCamelContext();
+        Exchange ex = new DefaultExchange(ctx);
+        ex.getIn().setHeader("NspkSearchServiceUsername", "test1");
+        ex.getIn().setHeader("NspkSearchServicePassword", "test2");
+        ex.getIn().setBody("");
+        template.send("direct:start", ex);
 
         assertMockEndpointsSatisfied();
     }

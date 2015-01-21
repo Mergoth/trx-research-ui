@@ -23,7 +23,7 @@
         <route id="trxresearch-ui-backend-proxy-route-test-end">
             <from uri="direct:start"/>
             <log loggingLevel="INFO" logName="test" message="trxresearch-ui-backend-proxy-route -> done"/>
-            <inOnly uri="http://{{nspk-search-service.host}}:{{nspk-search-service.port}}{{nspk-search-service.ctx}}?bridgeEndpoint=true&amp;throwExceptionOnFailure=false"/>
+            <inOnly uri="http://{{nspk-search-service.host}}:{{nspk-search-service.port}}{{nspk-search-service.ctx}}?authMethod=Basic&amp;authUsername=${header.NspkSearchServiceUsername}&amp;authPassword=${header.NspkSearchServicePassword}&amp;bridgeEndpoint=true&amp;throwExceptionOnFailure=false"/>
         </route>
                         
         <route id="trxresearch-ui-backend-proxy-route-test-start">

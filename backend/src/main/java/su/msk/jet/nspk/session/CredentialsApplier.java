@@ -15,10 +15,8 @@ public class CredentialsApplier implements Processor {
     
     public void process(Exchange exchange) {
         HttpSession session = exchange.getIn(HttpMessage.class).getRequest().getSession();
-        Message message = exchange.getIn();
-        
-        message.setHeader("authMethod", "Basic");
-        message.setHeader("authUsername", session.getAttribute(AuthenticationParams.USERNAME));
-        message.setHeader("authPassword", session.getAttribute(AuthenticationParams.PASSWORD));
+        Message message = exchange.getIn();        
+        message.setHeader("NspkSearchServiceUsername", session.getAttribute(AuthenticationParams.USERNAME));
+        message.setHeader("NspkSearchServicePassword", session.getAttribute(AuthenticationParams.PASSWORD));
     }
 }
