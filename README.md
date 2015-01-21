@@ -10,9 +10,15 @@ Backend - Java-приложение на Camel для проксирования
 1. Руководство по установке Sencha CMD http://docs-origin.sencha.com/cmd/5.x/intro_to_cmd.html
 2. Создать Workspace (исходники ExtJS будут скачены автоматически с ключем -ext):
 
-        sencha generate workspace -ext /home/username/git/extjs-nspk
+        sencha generate workspace -ext /home/{user}/git/extjs-nspk
 
 3. В каталог Workspace склонировать репозиторий.
+4. Создать симлинк для пакета с темой:
+
+        cd ~/git/extjs-nspk/packages
+        ln -s /home/{user}/git/extjs-nspk/trxresearchui/nspk-theme
+//TODO нужен репозиторий для релизов пакетов Sencha
+
 
 Настройка Maven для фронтенда
 -----------------------------
