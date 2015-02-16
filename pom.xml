@@ -23,4 +23,12 @@
         <tag>HEAD</tag>
     </scm>
 
+    <distributionManagement>
+        <repository>
+            <id>cdp</id>
+            <name>jet</name>
+            <url>http://artifactory.cpr.jet.msk.su:8081/artifactory/libs-release-local</url>
+        </repository>
+    </distributionManagement>
+    
 </project>

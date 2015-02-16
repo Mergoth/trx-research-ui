@@ -38,3 +38,9 @@ Production-сборка
 Установка в локальный maven-репозиторий:
 
         mvn clean install
+
+Установка во Fuse
+-----------------
+        features:install camel-jackson
+        install -s mvn:su.msk.jet.nspk/trx-research-ui-backend/1.0.0-SNAPSHOT
+        install -s mvn:su.msk.jet.nspk/trx-research-ui-frontend/1.0.0-SNAPSHOT
