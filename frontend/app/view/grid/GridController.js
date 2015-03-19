@@ -29,20 +29,19 @@ Ext.define('TrxResearch.view.grid.GridController', {
     },
 
     showDetails: function(record,row) {
-        var detailsView = new TrxResearch.view.details.Details({
-            session: this.session,
-            autoShow: true,
-            listeners: {
-                scope: this
-            },
-            bind:{
-                data: { rec: record }
-            }
+        //debugger;
+        this.fireEvent('showdetails', record.get('recordId'));
+        var detailsView = Ext.create('TrxResearch.view.details.Details', {autoShow: false});/*new TrxResearch.view.details.Details({
+            //session: this.session,
+            autoShow: false
 
-        });
-        detailsView.child('form').loadRecord(record);
+        });*/
+
+        detailsView.fireEvent('showdetails', record.get('recordId'));
+/*        detailsView.controller.loadDetails(record);
         //detailsView.show();
-        return detailsView;
+        return detailsView;*/
     }
+
 
 });

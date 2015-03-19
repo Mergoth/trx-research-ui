@@ -35,7 +35,7 @@ Ext.define('TrxResearch.view.main.MainModel', {
     stores: {
         records: {
             type: 'store',
-            model: 'TrxResearch.model.Record',
+            model: 'TrxResearch.model.ShortRecord',
             remoteFilter: true,
             proxy: {
                 type: 'ajax',

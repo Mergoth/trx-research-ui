@@ -17,13 +17,15 @@ Ext.define('TrxResearch.view.details.Details',{
 
     items: {
         xtype: 'form',
-        reference: 'form',
+        reference: 'detailsForm',
         layout: {
             type:'table',
             columns:4
         },
+        //bind: '{details}',
         listeners: {
-            beforerender:'beforerender'
+            beforerender:'beforerender',
+            loadDetails:'loadDetails'
         }
     }
 });
