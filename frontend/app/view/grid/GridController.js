@@ -22,5 +22,27 @@ Ext.define('TrxResearch.view.grid.GridController', {
 
     renderTxnMti: function(v, meta, rec) {
         return TrxResearch.model.Record.getTxnMtiName(v);
+    },
+
+    onDetailsClick: function(view,rowIndex, colIndex ,item ,e ,record , row) {
+       this.showDetails(record,row);
+    },
+
+    showDetails: function(record,row) {
+        var detailsView = new TrxResearch.view.details.Details({
+            session: this.session,
+            autoShow: true,
+            listeners: {
+                scope: this
+            },
+            bind:{
+                data: { rec: record }
+            }
+
+        });
+        detailsView.child('form').loadRecord(record);
+        //detailsView.show();
+        return detailsView;
     }
+
 });

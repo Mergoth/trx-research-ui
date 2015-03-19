@@ -22,7 +22,7 @@ Ext.define("TrxResearch.view.grid.Grid",{
         ui: 'default'
     }],
 
-    plugins: [{
+    /*plugins: [{
         ptype: 'rowexpander',
         expandOnDblClick: false,
         rowBodyTpl: new Ext.XTemplate(
@@ -72,7 +72,7 @@ Ext.define("TrxResearch.view.grid.Grid",{
             '<td width="25%"><b>DE12:</b> {txnF12}</td>',
             '<td width="25%"><b>DE38:</b> {txnF38}</td>',
             '<td width="25%"><b>DE60:</b> {txnF60}</td>',
-            '<td width="25%"><b>In-Gate ID:</b> {inGateId}</td>',
+            '<td width="25%"></td>',
             '</tr>','<tr>',
             '<td width="25%"><b>DE13:</b> {txnF13}</td>',
             '<td width="25%"><b>DE39:</b> {txnF39}</td>',
@@ -92,22 +92,32 @@ Ext.define("TrxResearch.view.grid.Grid",{
             '<td width="25%"><b>DE16:</b> {txnF16}</td>',
             '<td width="25%"><b>DE43:</b> {txnF43}</td>',
             '<td width="25%"><b>Issuer BIN:</b> {issuerBin}</td>',
-            '<td width="25%"><b>Out-Gate Time-Out:</b> {outGateTimeOut}</td>',
+            '<td width="25%"></td>',
             '</tr>','<tr>',
             '<td width="25%"><b>DE18:</b> {txnF18}</td>',
             '<td width="25%"><b>DE44:</b> {txnF44}</td>',
             '<td width="25%"><b>Issuer ID:</b> {issuerId}</td>',
-            '<td width="25%"><b>Export Status:</b> {exportStatus}</td>',
+            '<td width="25%"></td>',
             '</tr>','<tr>',
         '</tr></table>'
         )
-    }],
+    }],*/
 
     columns: {
         defaults: {
             sortable: false
         },
         items:[{
+            xtype:'actioncolumn',
+            width:20,
+            menuDisabled:true,
+            items: [{
+                icon: 'resources/images/expand_basic_red.png',  // Use a URL in the icon config
+                tooltip: 'Edit',
+                handler: 'onDetailsClick'
+            }]
+
+        }, {
             dataIndex: 'txnMti',
             text: 'Тип операции',
             renderer: 'renderTxnMti',
