@@ -1,6 +1,7 @@
 /**
  * Эмулятор Ajax-запроса
  */
+/*
 Ext.define('TrxResearch.sim.Login', {
     requires: ['Ext.ux.ajax.SimManager']
 
@@ -21,3 +22,4 @@ Ext.define('TrxResearch.sim.Login', {
         }
     });
 });
+*/

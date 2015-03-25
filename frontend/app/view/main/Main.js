@@ -61,7 +61,17 @@ Ext.define('TrxResearch.view.main.Main', {
             }]
         },{
             xtype: 'panel',
-            title: 'Клиринг'
+            title: 'Клиринг',
+            layout: {
+                type: 'border'
+            },
+            items: [{
+                xtype: 'trxresearch-search',
+                region: 'north'
+            }, {
+                xtype: 'trxresearch-grid',
+                region: 'center'
+            }]
         },{
             xtype: 'panel',
             title: 'История запросов'

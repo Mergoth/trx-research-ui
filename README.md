@@ -43,4 +43,5 @@ Production-сборка
 -----------------
         features:install camel-jackson
         install -s mvn:su.msk.jet.nspk/trx-research-ui-backend/1.0.0-SNAPSHOT
-        install -s mvn:su.msk.jet.nspk/trx-research-ui-frontend/1.0.0-SNAPSHOT
+        install -s mvn:su.msk.jet.nspk/trx-research-ui-frontend/1.0.0-SNAPSHOT/war
+

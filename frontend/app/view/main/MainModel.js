@@ -9,17 +9,33 @@ Ext.define('TrxResearch.view.main.MainModel', {
     data: {
         title: 'Transaction Research',
 
-        txnF2: null,
-        txnF7Begin: null,
-        txnF7End: null
+        PAN: null,
+        dateBegin: null,
+        dateEnd: null,
+        MTI: null,
+        issuerICA: null,
+        issuerBIN: null,
+        acquirerId: null,
+        RRN: null,
+        opId: null,
+        MCC: null,
+        terminalId: null
     },
 
     formulas: {
         filters: {
             bind: {
-                txnF2: '{txnF2}',
-                txnF7Begin: '{txnF7Begin}',
-                txnF7End: '{txnF7End}'
+                PAN: '{PAN}',
+                dateBegin: '{dateBegin}',
+                dateEnd: '{dateEnd}',
+                MTI: '{MTI}',
+                issuerICA: '{issuerICA}',
+                issuerBIN: '{issuerBIN}',
+                acquirerId: '{acquirerId}',
+                RRN: '{RRN}',
+                opId: '{opId}',
+                MCC: '{MCC}',
+                terminalId: '{terminalId}'
             },
             get: function(filters) {
                 Ext.Object.each(filters, function(k, v, o) {

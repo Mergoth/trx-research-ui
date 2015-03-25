@@ -37,17 +37,17 @@ Ext.define('TrxResearch.view.search.Search', {
     items:[{
         items: [{
             fieldLabel: 'Полный номер карты',
-            bind: '{txnF2}'
+            bind: '{PAN}'
         }]
     }, {
         items: [{
             fieldLabel: 'Начальная дата поиска',
             xtype: 'datefield',
-            bind: '{txnF7Begin}'
+            bind: '{dateBegin}'
         }, {
             fieldLabel: 'Конечная дата поиска',
             xtype: 'datefield',
-            bind: '{txnF7End}'
+            bind: '{dateEnd}'
         }]
     }]
 });

@@ -22,6 +22,9 @@ Ext.define('TrxResearch.view.details.Details',{
             type:'table',
             columns:4
         },
+        items: {
+
+        },
         //bind: '{details}',
         listeners: {
             beforerender:'beforerender',
