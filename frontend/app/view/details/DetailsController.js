@@ -19,11 +19,11 @@ Ext.define('TrxResearch.view.grid.DetailsController', {
         //debugger;
         var me=this;
         this.lookupReference('detailsForm').load({
-            url: '/proxy/detailsService',
+            url: '/proxy/detailsService?reportType=xml',
             params: {'recordId':recordId},
             method: 'GET',
             success: function() {
-
+                me.getView().unmask();
             },
             failure: function() {
                 Ext.Msg.alert('Ошибка', 'Ошибка получения детальных результатов!', function() {
@@ -33,7 +33,20 @@ Ext.define('TrxResearch.view.grid.DetailsController', {
             },
             scope: me
         });
-        this.getView().show();
+        me.getView().show().mask();
+    },
+
+    downloadDetails: function(comp) {
+        /*var btn = (comp.isXType('splitbutton'))?comp:comp.findParentByType('splitbutton');
+        btn.toggle(comp.getStateId());*/
+        Ext.create('Ext.Component', {
+            renderTo: Ext.getBody(),
+            cls: 'x-hidden',
+            autoEl: {
+                tag: 'iframe',
+                src: '/proxy/detailsService?reportType='+comp.getStateId()
+             }
+        });
     },
 
    /* onCloseView: function() {
@@ -53,7 +66,21 @@ Ext.define('TrxResearch.view.grid.DetailsController', {
                         name: field.name,
                         bind: '{' + field.name + '}',
                         fieldLabel: field.name,
-                        allowBlank: false
+                        maxWidth: 200,
+                        labelAlign:'right',
+                        renderer:function(value, field) {
+                            var tip = Ext.create('Ext.tip.ToolTip', {
+                                // The overall target element.
+                                target: field.el,
+                                // Moving within the row should not hide the tip.
+                                trackMouse: true,
+                                html:value
+
+                                });
+                         // field.setTooltip(value);
+                            return Ext.String.ellipsis(value,20,true);
+
+                        }
                     }]);
 
             }

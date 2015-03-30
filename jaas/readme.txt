@@ -1,0 +1,1 @@
+ install -s mvn:su.msk.jet.nspk/trx-research-ui-jaas/1.0.0-SNAPSHOT

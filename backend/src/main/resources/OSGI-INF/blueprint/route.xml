@@ -2,12 +2,14 @@
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
-           xsi:schemaLocation="
-           http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
-           http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0 http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.1.0.xsd
-           http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+           xmlns:camel="http://camel.apache.org/schema/blueprint"
 
-    <cm:property-placeholder persistent-id="su.msk.jet.nspk" update-strategy="reload">
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+           http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0 http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.1.0.xsd
+           ">
+
+
+    <cm:property-placeholder persistent-id="su.msk.jet.nspk.trxUIProps" update-strategy="reload">
         <cm:default-properties>
             <cm:property name="nspk-search-service.host" value="localhost"/>
             <cm:property name="nspk-search-service.port" value="22222"/>
@@ -15,23 +17,25 @@
             <cm:property name="nspk-details-service.ctx" value="/trx/transaction/1.0"/>
         </cm:default-properties>
     </cm:property-placeholder>
-    
+
     <bean id="credentialsSaver" class="su.msk.jet.nspk.session.CredentialsSaver"/>
     <bean id="credentialsApplier" class="su.msk.jet.nspk.session.CredentialsApplier"/>
-    
-     <!--to setup camel servlet with OSGi HttpService--> 
+    <bean id="jsonToExt" class="su.msk.jet.nspk.mapper.JsonToExtJson"/>
+
+    <!--to setup camel servlet with OSGi HttpService-->
     <reference id="httpService" interface="org.osgi.service.http.HttpService"/>
-    
+
     <bean id="camelServlet" class="org.apache.camel.component.servlet.CamelHttpTransportServlet"/>
 
-    <bean class="org.apache.camel.component.servlet.osgi.OsgiServletRegisterer" init-method="register" destroy-method="unregister">
+    <bean class="org.apache.camel.component.servlet.osgi.OsgiServletRegisterer" init-method="register"
+          destroy-method="unregister">
         <property name="alias" value="/proxy"/>
         <property name="httpService" ref="httpService"/>
         <property name="servlet" ref="camelServlet"/>
         <property name="servletName" value="CamelServlet"/>
     </bean>
 
-<!--    <bean id="loginService"
+    <!--    <bean id="loginService"
           class="org.eclipse.jetty.plus.jaas.JAASLoginService">
         <property name="name" value="nspkLdap"/>
         <property name="loginModuleName" value="nspkLdap"/>
@@ -72,37 +76,39 @@
         <property name="identityService" ref="identityService"/>
     </bean>-->
     <!--CAMEL-->
-    <camelContext id="trxresearch-ui-backend-context" xmlns="http://camel.apache.org/schema/blueprint">
-        <route id="trxresearch-ui-backend-authenticate-route">
-            <from uri="servlet:///authenticate?servletName=CamelServlet&amp;matchOnUriPrefix=true"/>
+    <camelContext id="trxresearch-ui-backend-context" trace="true" xmlns="http://camel.apache.org/schema/blueprint">
+        <camel:route id="trxui-authenticate">
+            <camel:from uri="servlet:///authenticate?servletName=CamelServlet&amp;matchOnUriPrefix=true"/>
 
-            <process ref="credentialsSaver" />
-            <log loggingLevel="INFO" logName="su.msk.jet.nspk" message="trxresearch-ui-backend-authenticate=route -> done"/>
-            <marshal>
-                <json library="Jackson" unmarshalTypeName="su.msk.jet.nspk.model.User"/>
-            </marshal>
-        </route>
+            <camel:process ref="credentialsSaver"/>
+            <camel:log loggingLevel="INFO" logName="su.msk.jet.nspk"
+                       message="trxresearch-ui-backend-authenticate=route -> done"/>
+            <camel:marshal>
+                <camel:json library="Jackson" unmarshalTypeName="su.msk.jet.nspk.model.User"/>
+            </camel:marshal>
+        </camel:route>
 
-        <route id="trxresearch-ui-backend-search-route">
-            <from uri="servlet:///searchService?servletName=CamelServlet&amp;matchOnUriPrefix=true"/>
-            <process ref="credentialsApplier" />
-            <log loggingLevel="INFO" logName="su.msk.jet.nspk" message="trxresearch-ui-backend-route -> done"/>
-            <recipientList>
-                <simple>
+        <camel:route id="trxui-search">
+            <camel:from uri="servlet:///searchService?servletName=CamelServlet&amp;matchOnUriPrefix=true"/>
+            <camel:process ref="credentialsApplier"/>
+            <camel:log loggingLevel="INFO" logName="su.msk.jet.nspk" message="trxresearch-ui-backend-route -> done"/>
+            <camel:recipientList>
+                <camel:simple>
                     http://{{nspk-search-service.host}}:{{nspk-search-service.port}}{{nspk-search-service.ctx}}/auth?authMethod=Basic&amp;authUsername=${header.NspkSearchServiceUsername}&amp;authPassword=${header.NspkSearchServicePassword}&amp;httpClient.authenticationPreemptive=true&amp;bridgeEndpoint=true&amp;throwExceptionOnFailure=false
-                </simple>
-            </recipientList>
-        </route>
+                </camel:simple>
+            </camel:recipientList>
+        </camel:route>
 
-        <route id="trxresearch-ui-backend-details-route">
-            <from uri="servlet:///detailsService?servletName=CamelServlet&amp;matchOnUriPrefix=true"/>
-            <process ref="credentialsApplier" />
-            <log loggingLevel="INFO" logName="su.msk.jet.nspk" message="trxresearch-ui-backend-route -> done"/>
-            <recipientList>
-                <simple>
-                    http://{{nspk-search-service.host}}:{{nspk-search-service.port}}{{nspk-details-service.ctx}}/auth?authMethod=Basic&amp;authUsername=${header.NspkSearchServiceUsername}&amp;authPassword=${header.NspkSearchServicePassword}&amp;httpClient.authenticationPreemptive=true&amp;bridgeEndpoint=true&amp;throwExceptionOnFailure=false
-                </simple>
-            </recipientList>
-        </route>
+        <camel:route id="trxui-details">
+            <camel:from uri="servlet:///detailsService?servletName=CamelServlet&amp;matchOnUriPrefix=true"/>
+            <camel:process ref="credentialsApplier"/>
+            <camel:setHeader headerName="CamelHttpUri">
+                <camel:simple>http://{{nspk-search-service.host}}:{{nspk-search-service.port}}{{nspk-details-service.ctx}}/auth?authMethod=Basic&amp;authUsername=${header.NspkSearchServiceUsername}&amp;authPassword=${header.NspkSearchServicePassword}&amp;httpClient.authenticationPreemptive=true&amp;throwExceptionOnFailure=false</camel:simple>
+            </camel:setHeader>
+            <camel:log loggingLevel="INFO" logName="su.msk.jet.nspk" message="trxresearch-ui-backend-route -> done"/>
+            <camel:to
+                    uri="http://stubPath:stubPort"/>
+            <camel:process ref="jsonToExt"/>
+        </camel:route>
     </camelContext>
 </blueprint>

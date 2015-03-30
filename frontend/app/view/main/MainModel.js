@@ -10,8 +10,8 @@ Ext.define('TrxResearch.view.main.MainModel', {
         title: 'Transaction Research',
 
         PAN: null,
-        dateBegin: null,
-        dateEnd: null,
+        dateBegin:new Date(new Date().setDate(new Date().getDate()-90)),
+        dateEnd: new Date(),
         MTI: null,
         issuerICA: null,
         issuerBIN: null,

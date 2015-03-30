@@ -16,11 +16,6 @@ Ext.define("TrxResearch.view.grid.Grid",{
 
     bind: '{records}',
 
-    tbar: [{
-        text: 'Поиск',
-        handler: 'onSearchClick',
-        ui: 'default'
-    }],
 
     /*plugins: [{
         ptype: 'rowexpander',

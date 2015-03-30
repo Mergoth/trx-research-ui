@@ -24,6 +24,7 @@ Ext.define('TrxResearch.LoginManager', {
     },
 
     login: function(options) {
+
         Ext.Ajax.request({
             url: '/proxy/authenticate',
             method: 'GET',

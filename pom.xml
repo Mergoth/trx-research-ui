@@ -25,6 +25,34 @@
         <tag>HEAD</tag>
     </scm>
 
+    <pluginRepositories>
+
+        <pluginRepository>
+            <id>release.fusesource.org</id>
+            <name>FuseSource Release Repository</name>
+            <url>http://repo.fusesource.com/nexus/content/repositories/releases</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
+
+        <pluginRepository>
+            <id>snapshot.fusesource.org</id>
+            <name>FuseSource Snapshot Repository</name>
+            <url>http://repo.fusesource.com/nexus/content/repositories/snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </pluginRepository>
+
+    </pluginRepositories>
+
     <distributionManagement>
         <repository>
             <id>artifactory</id>
@@ -32,5 +60,59 @@
             <url>http://artifactory.cpr.jet.msk.su:8081/artifactory/libs-release-local</url>
         </repository>
     </distributionManagement>
-    
+    <build>
+    <plugins>
+    <plugin>
+        <groupId>org.apache.karaf.tooling</groupId>
+        <artifactId>features-maven-plugin</artifactId>
+        <executions>
+            <execution>
+                <id>generate</id>
+                <phase>generate-resources</phase>
+                <goals>
+                    <goal>generate-features-xml</goal>
+                </goals>
+                <configuration>
+                    <bundles>src/main/resources/bundles.properties</bundles>
+                    <kernelVersion>2.4.1</kernelVersion>
+                    <outputFile>target/features.xml</outputFile>
+                </configuration>
+            </execution>
+            <execution>
+                <id>add-features-to-repo</id>
+                <phase>compile</phase>
+                <goals>
+                    <goal>add-features-to-repo</goal>
+                </goals>
+                <configuration>
+                    <descriptors>
+                        <descriptor>mvn:org.apache.servicemix/apache-servicemix/5.4.0/xml/examples</descriptor>
+                        <descriptor>mvn:org.apache.karaf.assemblies.features/enterprise/2.4.1/xml/features</descriptor>
+                        <descriptor>mvn:org.apache.servicemix/apache-servicemix/5.4.0/xml/features</descriptor>
+                        <descriptor>mvn:org.ops4j.pax.web/pax-web-features/3.1.2/xml/features</descriptor>
+                        <descriptor>mvn:org.apache.cxf.karaf/apache-cxf/3.0.2/xml/features</descriptor>
+                        <descriptor> mvn:org.ops4j.pax.cdi/pax-cdi-features/0.8.0/xml/features</descriptor>
+                        <descriptor>mvn:org.apache.karaf.assemblies.features/standard/2.4.1/xml/features</descriptor>
+                        <descriptor>mvn:org.apache.servicemix/apache-servicemix/5.4.0/xml/internal</descriptor>
+                        <descriptor>mvn:org.apache.karaf.assemblies.features/spring/2.4.1/xml/features</descriptor>
+                        <descriptor>mvn:org.apache.camel.karaf/apache-camel/2.14.1/xml/features</descriptor>
+                        <descriptor> mvn:org.apache.activemq/activemq-karaf/5.10.0/xml/features</descriptor>
+                        <descriptor> mvn:org.apache.jclouds.karaf/jclouds-karaf/1.8.0/xml/features</descriptor>
+                    </descriptors>
+                    <features>
+                        <feature>camel-jackson</feature>
+                        <feature>jetty</feature>
+                        <feature>camel-jetty</feature>
+                        <feature>camel-servlet</feature>
+
+                    </features>
+                    <includeMvnBasedDescriptors>true</includeMvnBasedDescriptors>
+                    <repository>${project.build.directory}/features-repo</repository>
+                </configuration>
+                <inherited>false</inherited>
+            </execution>
+        </executions>
+    </plugin>
+    </plugins>
+    </build>
 </project>
