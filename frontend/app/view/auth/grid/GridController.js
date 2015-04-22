@@ -1,13 +1,13 @@
 /**
  *
  */
-Ext.define('TrxResearch.view.grid.GridController', {
+Ext.define('TrxResearch.view.auth.grid.GridController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.trxresearch-grid',
+    alias: 'controller.trxresearch-auth-grid',
 
 
     renderStatus: function(v, meta, rec) {
-        return TrxResearch.model.Record.getStatusName(v);
+        return TrxResearch.model.auth.Record.getStatusName(v);
     },
 
     renderEmitentIca: function(v, meta, rec) {
@@ -18,7 +18,7 @@ Ext.define('TrxResearch.view.grid.GridController', {
     },
 
     renderTxnMti: function(v, meta, rec) {
-        return TrxResearch.model.Record.getTxnMtiName(v);
+        return TrxResearch.model.auth.Record.getTxnMtiName(v);
     },
 
     onDetailsClick: function(view,rowIndex, colIndex ,item ,e ,record , row) {
@@ -28,7 +28,7 @@ Ext.define('TrxResearch.view.grid.GridController', {
     showDetails: function(record,row) {
         //debugger;
         //this.fireEvent('showdetails', record.get('recordId'));
-        var detailsView = Ext.create('TrxResearch.view.details.Details', {autoShow: false});/*new TrxResearch.view.details.Details({
+        var detailsView = Ext.create('TrxResearch.view.auth.details.Details', {autoShow: false});/*new TrxResearch.view.details.Details({
             //session: this.session,
             autoShow: false
 

@@ -40,7 +40,7 @@ Ext.define('TrxResearch.view.login.LoginController', {
     },
     
     onLoginFailure: function() {
-        // Do something
+        Ext.Msg.alert('Ошибки', 'Неудачная авторизация.');
         Ext.getBody().unmask();
     },
 

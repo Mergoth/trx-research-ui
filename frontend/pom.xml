@@ -4,14 +4,13 @@
     
     <parent>
         <groupId>su.msk.jet.nspk</groupId>
-        <artifactId>trx-research-ui-parent</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <artifactId>parent</artifactId>
+        <version>1.0</version>
         <relativePath>../</relativePath>
     </parent>
 
-    <groupId>su.msk.jet.nspk</groupId>
-    <artifactId>trx-research-ui-frontend</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <artifactId>ui-frontend</artifactId>
+    <version>${trx-research-ui-frontend.version}</version>
     <packaging>war</packaging>
 
     <name>NSPK TRX Research UI Frontend</name>
@@ -22,7 +21,7 @@
                 
         <!-- Каталог в build/production -->
         <sencha.app.dir>TrxResearch</sencha.app.dir>
-        
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <sencha.cmd.target>${sencha.workspace}/build</sencha.cmd.target>
         <sencha.cmd.version>5.1.2.52</sencha.cmd.version>
         <sencha.cmd.dir>${sencha.cmd.home}/${sencha.cmd.version}</sencha.cmd.dir>

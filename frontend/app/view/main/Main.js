@@ -53,10 +53,10 @@ Ext.define('TrxResearch.view.main.Main', {
                 type: 'border'
             },
             items: [{
-                xtype: 'trxresearch-search',
+                xtype: 'trxresearch-auth-search',
                 region: 'north'
             }, {
-                xtype: 'trxresearch-grid',
+                xtype: 'trxresearch-auth-grid',
                 region: 'center'
             }]
         },{
@@ -66,10 +66,10 @@ Ext.define('TrxResearch.view.main.Main', {
                 type: 'border'
             },
             items: [{
-                xtype: 'trxresearch-search',
+                xtype: 'trxresearch-clearing-search',
                 region: 'north'
             }, {
-                xtype: 'trxresearch-grid',
+                xtype: 'trxresearch-clearing-grid',
                 region: 'center'
             }]
         },{

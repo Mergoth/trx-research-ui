@@ -1,10 +1,10 @@
 /**
  *
  */
-Ext.define('TrxResearch.view.grid.DetailsController', {
+Ext.define('TrxResearch.view.auth.details.DetailsController', {
     extend: 'Ext.app.ViewController',
 
-    alias: 'controller.trxresearch-details',
+    alias: 'controller.trxresearch-auth-details',
 
     config: {
         control: {
@@ -19,10 +19,12 @@ Ext.define('TrxResearch.view.grid.DetailsController', {
         //debugger;
         var me=this;
         this.lookupReference('detailsForm').load({
-            url: '/proxy/detailsService?reportType=xml',
-            params: {'recordId':recordId},
+            url: '/proxy/detailsService/auth',
+            params: {'recordId':recordId,
+                     'reportType':'xml' },
             method: 'GET',
             success: function() {
+
                 me.getView().unmask();
             },
             failure: function() {
@@ -37,25 +39,23 @@ Ext.define('TrxResearch.view.grid.DetailsController', {
     },
 
     downloadDetails: function(comp) {
-        /*var btn = (comp.isXType('splitbutton'))?comp:comp.findParentByType('splitbutton');
-        btn.toggle(comp.getStateId());*/
+
         Ext.create('Ext.Component', {
             renderTo: Ext.getBody(),
             cls: 'x-hidden',
             autoEl: {
                 tag: 'iframe',
-                src: '/proxy/detailsService?reportType='+comp.getStateId()
+                src: '/proxy/detailsService/auth?recordId='+this.getViewModel('trxresearch-auth-details').get('recordId')+'&amp;reportType='+comp.getStateId()
+
              }
         });
     },
 
-   /* onCloseView: function() {
-        this.getView().close();
-    },*/
+
 
     beforerender: function(thisComp ) {
 
-        var fields = TrxResearch.model.Record.fields;
+        var fields = TrxResearch.model.auth.Record.fields;
         for (var i=0;i<fields.length;i++) {
 
             field = fields[i];
@@ -88,16 +88,6 @@ Ext.define('TrxResearch.view.grid.DetailsController', {
         }
 
 
-    }/*,
-    loadDetails: function(record) {
-        this.getViewModel().getStore('details').load({
-            scope: this,
-            params: {'recordId':record.recordId},
-            callback: function(records,operation,success) {
-                alert("loaded");
-            }
-
-        });
-    }*/
+    }
 
 });

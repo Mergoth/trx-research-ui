@@ -1,20 +1,20 @@
 /**
  *
  */
-Ext.define("TrxResearch.view.grid.Grid",{
+Ext.define("TrxResearch.view.auth.grid.Grid",{
     extend: "Ext.grid.Panel",
-    alias: 'widget.trxresearch-grid',
+    alias: 'widget.trxresearch-auth-grid',
 
-    controller: "trxresearch-grid",
+    controller: "trxresearch-auth-grid",
     viewModel: {
-        type: "trxresearch-grid"
+        type: "trxresearch-auth-grid"
     },
 
     bufferedRenderer: false,
 //    seems broken
 //    sortableColumns: false,
 
-    bind: '{records}',
+    bind: '{auth_records}',
 
 
     /*plugins: [{
@@ -160,12 +160,20 @@ Ext.define("TrxResearch.view.grid.Grid",{
             flex: 1
         }, {
             dataIndex: 'txnF2',
-            text: 'ICA Эмитента',
+            text: 'ID Эмитента',
             renderer: 'renderEmitentIca',
             flex: 1
         }, {
+            dataIndex: 'out_gate_id',
+            text: 'СЭДО ID Эмитента',
+            flex: 1
+        }, {
             dataIndex: 'txnF32',
-            text: 'ICA Эквайрера',
+            text: 'ID Эквайрера',
+            flex: 1
+        }, {
+            dataIndex: 'in_gate_id',
+            text: 'СЭДО ID эквайера',
             flex: 1
         }]
     }

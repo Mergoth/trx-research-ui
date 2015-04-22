@@ -1,5 +1,5 @@
-Ext.define('TrxResearch.model.ShortRecord', {
-    extend: 'TrxResearch.model.Record',
+Ext.define('TrxResearch.model.auth.ShortRecord', {
+    extend: 'TrxResearch.model.auth.Record',
 
 
     fields: [
