@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.0.0 http://karaf.apache.org/xmlns/features/v1.0.0"
+	name="TRXREsearchUI">
+
+
+
+        <feature name="trx-research-ui-backend" version="${trx-research-ui-backend.version}" description="TRX Research UI Backend">
+			<configfile finalname="etc/su.msk.jet.nspk.trxUIProps.cfg">mvn:su.msk.jet.nspk/ui-backend/${trx-research-ui-backend.version}/cfg</configfile>
+        	<feature>camel-jackson</feature>
+			<feature>jetty</feature>
+        	<feature>camel-jetty</feature>
+        	<feature>camel-servlet</feature>
+			<bundle>mvn:su.msk.jet.nspk/ui-backend/${trx-research-ui-backend.version}</bundle>
+        </feature>
+
+		<feature name="trx-research-ui-frontend" version="${trx-research-ui-frontend.version}"
+				 description="TRX Research UI Frontend">
+			<feature version="${trx-research-ui-backend.version}">trx-research-ui-backend</feature>
+			<bundle>mvn:su.msk.jet.nspk/ui-frontend/${trx-research-ui-frontend.version.version}</bundle>
+		</feature>
+</features>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>su.msk.jet.nspk</groupId>
+		<artifactId>parent</artifactId>
+		<version>1.0</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>offline-repository</artifactId>
+	<name>Generate offline features repository</name>
+	<dependencies>
+		<dependency>
+			<groupId>su.msk.jet.nspk</groupId>
+			<artifactId>features</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.karaf.tooling</groupId>
+				<artifactId>features-maven-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+					<execution>
+						<id>add-features-to-repo</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>add-features-to-repo</goal>
+						</goals>
+						<configuration>
+							<descriptors>
+                                   <descriptor>mvn:org.apache.karaf.assemblies.features/enterprise/2.3.0.redhat-60065/xml/features</descriptor>
+									<descriptor>mvn:org.apache.cxf.karaf/apache-cxf/2.6.0.redhat-60065/xml/features</descriptor>
+									<descriptor>mvn:org.apache.camel.karaf/apache-camel/2.10.0.redhat-60065/xml/features</descriptor>
+									<descriptor>mvn:org.apache.activemq/activemq-karaf/5.8.0.redhat-60065/xml/features</descriptor>
+									<descriptor>mvn:org.fusesource.fabric/fuse-fabric/7.2.0.redhat-065/xml/features</descriptor>
+									<descriptor>mvn:org.apache.karaf.assemblies.features/standard/2.3.0.redhat-60065/xml/features</descriptor>
+									<descriptor>mvn:su.msk.jet.nspk/features/1.0/xml/features</descriptor>
+									<descriptor>mvn:org.jclouds.karaf/jclouds-karaf/1.5.7/xml/features</descriptor>
+							</descriptors>
+							<features>
+								<feature>camel-jackson</feature>
+								<feature>jetty</feature>
+								<feature>camel-jetty</feature>
+								<feature>camel-servlet</feature>
+								<feature>trx-research-ui-frontend</feature>
+							</features>
+							<repository>target/features-repo</repository>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<repositories>
+
+		<repository>
+			<id>maven.central.repo</id>
+			<name>1</name>
+			<url>http://repo1.maven.org/maven2</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+
+
+		<repository>
+			<id>fusesource.release.repo</id>
+			<name>2</name>
+			<url>https://repo.fusesource.com/nexus/content/repositories/releases</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+
+
+		<repository>
+			<id>fusesource.ea.repo</id>
+			<name>3</name>
+			<url>https://repo.fusesource.com/nexus/content/groups/ea</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+
+
+		<repository>
+			<id>servicemix.repo</id>
+			<name>4</name>
+			<url>http://svn.apache.org/repos/asf/servicemix/m2-repo</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+
+
+		<repository>
+			<id>springsource.release.repo</id>
+			<name>5</name>
+			<url>http://repository.springsource.com/maven/bundles/release</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+
+
+		<repository>
+			<id>springsource.external.repo</id>
+			<name>6</name>
+			<url>http://repository.springsource.com/maven/bundles/external</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+
+
+		<repository>
+			<id>scala.repo</id>
+			<name>7</name>
+			<url>https://oss.sonatype.org/content/groups/scala-tools</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+
+	</repositories>
+
+</project>
