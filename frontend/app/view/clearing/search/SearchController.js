@@ -1,14 +1,19 @@
 /**
  *
  */
-Ext.define('TrxResearch.view.search.SearchController', {
+Ext.define('TrxResearch.view.clearing.search.SearchController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.trxresearch-search',
+    alias: 'controller.trxresearch-clearing-search',
 
     onSearchClick: function() {
-        this.getViewModel().getParent().getStore('records').removeAll();
+        this.getViewModel().getParent().getStore('clearing_records').removeAll();
         if (this.validateSearchFields()) {
-            this.getViewModel().getParent().getStore('records').load({params: this.getViewModel().get('filters')});
+            this.getViewModel().getParent().getStore('clearing_records').load({params: this.getViewModel().get('filters')});
+        }else {
+            Ext.Msg.alert('Ошибка заполнения полей', 'Хотя бы одно поле, кроме дат должно быть заполнено', function() {
+
+                },this
+            );
         }
     },
 

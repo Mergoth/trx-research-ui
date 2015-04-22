@@ -39,7 +39,7 @@ Ext.define('TrxResearch.view.main.MainModel', {
             },
             get: function(filters) {
                 Ext.Object.each(filters, function(k, v, o) {
-                    if (v == null) {
+                    if (v == null|| v== '') {
                         delete o[k];
                     }
                 });
@@ -49,13 +49,29 @@ Ext.define('TrxResearch.view.main.MainModel', {
     },
 
     stores: {
-        records: {
+        auth_records: {
             type: 'store',
-            model: 'TrxResearch.model.ShortRecord',
+            model: 'TrxResearch.model.auth.ShortRecord',
             remoteFilter: true,
             proxy: {
                 type: 'ajax',
-                url: '/proxy/searchService',
+                url: '/proxy/searchService/auth',
+                reader: {
+                    type: 'json'
+                },
+                pageParam: false, //to remove param "page"
+                startParam: false, //to remove param "start"
+                limitParam: false, //to remove param "limit"
+                noCache: false //to remove param "_dc"
+            }
+        },
+        clearing_records:{
+            type: 'store',
+            model: 'TrxResearch.model.clearing.ShortRecord',
+            remoteFilter: true,
+            proxy: {
+                type: 'ajax',
+                url: '/proxy/searchService/clearing',
                 reader: {
                     type: 'json'
                 },

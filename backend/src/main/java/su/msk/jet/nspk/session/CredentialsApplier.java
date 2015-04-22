@@ -5,9 +5,11 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
 import org.apache.camel.component.http.HttpMessage;
+import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import su.msk.jet.nspk.constants.AuthenticationParams;
+
 
 public class CredentialsApplier implements Processor {
 
@@ -15,7 +17,10 @@ public class CredentialsApplier implements Processor {
     
     public void process(Exchange exchange) {
         HttpSession session = exchange.getIn(HttpMessage.class).getRequest().getSession();
-        Message message = exchange.getIn();        
+        Message message = exchange.getIn();
+        String userPass = session.getAttribute(AuthenticationParams.USERNAME)+":"+session.getAttribute(AuthenticationParams.PASSWORD);
+
+        message.setHeader("Authorization",new StringBuilder().append("Basic ").append(Base64.encodeBase64String(userPass.getBytes())));
         message.setHeader("NspkSearchServiceUsername", session.getAttribute(AuthenticationParams.USERNAME));
         message.setHeader("NspkSearchServicePassword", session.getAttribute(AuthenticationParams.PASSWORD));
     }

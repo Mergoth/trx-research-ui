@@ -1,9 +1,9 @@
 /**
  *
  */
-Ext.define('TrxResearch.view.grid.DetailsModel', {
+Ext.define('TrxResearch.view.clearing.details.DetailsModel', {
     extend: 'Ext.app.ViewModel',
-    alias: 'viewmodel.trxresearch-details'
+    alias: 'viewmodel.trxresearch-clearing-details'
 
 /*    stores: {
         details: {

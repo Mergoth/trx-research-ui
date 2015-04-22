@@ -1,4 +1,4 @@
-Ext.define('TrxResearch.model.Record', {
+Ext.define('TrxResearch.model.auth.Record', {
     extend: 'Ext.data.Model',
 
     statics: {

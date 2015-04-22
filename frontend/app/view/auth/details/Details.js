@@ -1,4 +1,4 @@
-Ext.define('TrxResearch.view.details.Details',{
+Ext.define('TrxResearch.view.auth.details.Details',{
     extend: 'Ext.window.Window',
 
     requires: [
@@ -7,9 +7,9 @@ Ext.define('TrxResearch.view.details.Details',{
         'Ext.form.field.Text'
     ],
 
-    viewModel: 'trxresearch-details',
+    viewModel: 'trxresearch-auth-details',
     modal:true,
-    controller: 'trxresearch-details',
+    controller: 'trxresearch-auth-details',
     bodyPadding: 10,
     title: 'Details - Transaction Research',
     closable: true,
