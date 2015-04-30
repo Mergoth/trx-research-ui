@@ -130,6 +130,12 @@ Ext.define("TrxResearch.view.auth.grid.Grid",{
             text: 'Номер карты',
             flex: null,
             width: 160
+        },  {
+            dataIndex: 'txnMti',
+            text: 'Признак реверсала',
+            renderer:'renderReversal',
+            flex: null,
+            width: 160
         }, {
             dataIndex: 'txnF7',
             text: 'Дата и время',

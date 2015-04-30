@@ -1,3 +1,4 @@
+//@charset UTF-8
 Ext.define('TrxResearch.view.auth.details.Details',{
     extend: 'Ext.window.Window',
 

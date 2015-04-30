@@ -8,7 +8,6 @@ Ext.define('TrxResearch.view.main.MainModel', {
 
     data: {
         title: 'Transaction Research',
-
         PAN: null,
         dateBegin:new Date(new Date().setDate(new Date().getDate()-90)),
         dateEnd: new Date(),
@@ -19,7 +18,8 @@ Ext.define('TrxResearch.view.main.MainModel', {
         RRN: null,
         opId: null,
         MCC: null,
-        terminalId: null
+        terminalId: null,
+        ARN:null
     },
 
     formulas: {
@@ -28,14 +28,22 @@ Ext.define('TrxResearch.view.main.MainModel', {
                 PAN: '{PAN}',
                 dateBegin: '{dateBegin}',
                 dateEnd: '{dateEnd}',
-                MTI: '{MTI}',
+             /*   MTI: '{MTI}',
                 issuerICA: '{issuerICA}',
                 issuerBIN: '{issuerBIN}',
                 acquirerId: '{acquirerId}',
                 RRN: '{RRN}',
                 opId: '{opId}',
                 MCC: '{MCC}',
-                terminalId: '{terminalId}'
+                terminalId: '{terminalId}',*/
+                ARN:'{ARN}'/*,
+                acquirerICA:'{acquirerICA}',
+                acquirerBIN:'{acquirerBIN}'*/
+
+
+
+
+
             },
             get: function(filters) {
                 Ext.Object.each(filters, function(k, v, o) {

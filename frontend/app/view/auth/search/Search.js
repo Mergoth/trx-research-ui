@@ -75,7 +75,7 @@ Ext.define('TrxResearch.view.auth.search.Search', {
             },
             reference:'optionalFields',
             items: [
-            { fieldLabel: 'Полный номер карты',   bind: '{PAN}' ,width:255, maxLength:19 },
+            { fieldLabel: 'Полный номер карты',   bind: '{PAN}' ,width:255, maxLength:19 }/*,
             { fieldLabel: 'Тип операции',   bind: '{MTI}', width:255, maxLength:4  },
             { fieldLabel: 'ICA Эмитента', bind: '{issuerICA}', width:255, maxLength:10  },
             { fieldLabel: 'BIN Эмитента', bind: '{issuerBIN}', width:255, maxLength:10  },
@@ -83,7 +83,7 @@ Ext.define('TrxResearch.view.auth.search.Search', {
              { fieldLabel: 'RRN', bind: '{RRN}',width:255, maxLength:12  },
                 { fieldLabel: 'Идентификатор операции (BRN, Trx ID)' ,bind: '{opId}', width:255, maxLength:9  },
                 { fieldLabel: 'МСС', bind: '{MCC}',width:255, maxLength:4  },
-                { fieldLabel: 'Terminal ID', bind: '{terminalId}',width:255, maxLength:8  }
+                { fieldLabel: 'Terminal ID', bind: '{terminalId}',width:255, maxLength:8  }*/
             ]
         },
         {

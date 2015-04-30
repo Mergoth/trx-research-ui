@@ -31,12 +31,12 @@ Ext.define('TrxResearch.sim.auth.ShortRecord', {
     requires: ['Ext.ux.ajax.SimManager']
 
 }, function() {
-    var auth_records = [{"recordId":295534242,"txnMti":"0100", "txnF63_2":"0100"}
+    var auth_records = [{"recordId":295534242,"txnMti":"400", "txnF63_2":"0100"}
         ,{"recordId":2955,"txnMti":"0200", "txnF63_2":"0200"}];
     Ext.ux.ajax.SimManager.register({
         '/proxy/searchService/auth': {
             type: 'json',
-            data: [{"recordId":295534242,"txnMti":"0100", "txnF63_2":"0100"}
+            data: [{"recordId":295534242,"txnMti":"0400", "txnF63_2":"0100"}
                 ,{"recordId":2955,"txnMti":"0200", "txnF63_2":"0200"}]
         }
     });

@@ -59,7 +59,7 @@ Ext.define('TrxResearch.view.clearing.details.DetailsController', {
         for (var i=0;i<fields.length;i++) {
 
             field = fields[i];
-            if (field.name!='id') {
+            if (field.name!='id' && field.name!='entityId') {
                 var displayfield = thisComp.add([
                     {
                         xtype: 'displayfield',

@@ -23,7 +23,7 @@
         <sencha.app.dir>TrxResearch</sencha.app.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <sencha.cmd.target>${sencha.workspace}/build</sencha.cmd.target>
-        <sencha.cmd.version>5.1.2.52</sencha.cmd.version>
+        <sencha.cmd.version>5.1.3.60</sencha.cmd.version>
         <sencha.cmd.dir>${sencha.cmd.home}/${sencha.cmd.version}</sencha.cmd.dir>
         <cmd.dir>${sencha.cmd.dir}</cmd.dir>
     </properties>

@@ -1,3 +1,4 @@
+//@charset UTF-8
 /**
  *
  */
@@ -59,7 +60,7 @@ Ext.define('TrxResearch.view.auth.details.DetailsController', {
         for (var i=0;i<fields.length;i++) {
 
             field = fields[i];
-            if (field.name!='id') {
+            if (field.name!='id' && field.name!='entityId' && field.name!='recNumber') {
                 var displayfield = thisComp.add([
                     {
                         xtype: 'displayfield',

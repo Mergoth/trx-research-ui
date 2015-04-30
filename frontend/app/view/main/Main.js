@@ -72,9 +72,9 @@ Ext.define('TrxResearch.view.main.Main', {
                 xtype: 'trxresearch-clearing-grid',
                 region: 'center'
             }]
-        },{
+        }/*,{
             xtype: 'panel',
             title: 'История запросов'
-        }]
+        }*/]
     }]
 });

@@ -17,6 +17,13 @@ Ext.define('TrxResearch.view.auth.grid.GridController', {
         return v;
     },
 
+    renderReversal: function(v,meta,rec) {
+        if(v&& (v=='0400' || v=='0420')) {
+            return 'R';
+        }
+        return '';
+    },
+
     renderTxnMti: function(v, meta, rec) {
         return TrxResearch.model.auth.Record.getTxnMtiName(v);
     },

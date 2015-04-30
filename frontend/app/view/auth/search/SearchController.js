@@ -36,7 +36,8 @@ Ext.define('TrxResearch.view.auth.search.SearchController', {
         var result = true;
         var dateBegin = this.lookupReference('dateBegin').value;
         var dateEnd = this.lookupReference('dateEnd').value;
-        if ((dateEnd.getTime()<dateBegin.getTime())||((dateEnd.getTime()-dateBegin.getTime())>90*24*3600*1000)) {
+        var dateEndInterval = Ext.Date.add(dateBegin,Ext.Date.DAY,90);
+        if ( !Ext.Date.between(dateEnd,dateBegin,dateEndInterval)) {
             result = false;
         }
         return result;

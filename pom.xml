@@ -11,10 +11,10 @@
     <properties>        
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <project.version>0.5</project.version>
+        <project.version>1.1</project.version>
         <jetty-version>7.2.2.v20101205</jetty-version>
-        <trx-research-ui-backend.version>1.0</trx-research-ui-backend.version>
-        <trx-research-ui-frontend.version>1.0</trx-research-ui-frontend.version>
+        <trx-research-ui-backend.version>1.1.1</trx-research-ui-backend.version>
+        <trx-research-ui-frontend.version>1.1.2</trx-research-ui-frontend.version>
     </properties>
     
     <modules>

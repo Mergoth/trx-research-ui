@@ -7,12 +7,13 @@ Ext.define('TrxResearch.view.clearing.search.SearchController', {
 
     onSearchClick: function() {
         this.getViewModel().getParent().getStore('clearing_records').removeAll();
-        if (this.validateSearchFields()) {
+        var validateResult =this.validateSearchFields();
+        if (validateResult && validateResult.res) {
             this.getViewModel().getParent().getStore('clearing_records').load({params: this.getViewModel().get('filters')});
         }else {
-            Ext.Msg.alert('Ошибка заполнения полей', 'Хотя бы одно поле, кроме дат должно быть заполнено', function() {
-
-                },this
+            Ext.Msg.alert('Ошибка заполнения полей', validateResult.msg, function() {
+                this.msg;
+                },validateResult
             );
         }
     },
@@ -27,26 +28,34 @@ Ext.define('TrxResearch.view.clearing.search.SearchController', {
         dateBeginPicker.setMaxValue(v);
     },
     validateSearchFields: function() {
-        return this.validateDates()&&this.validateFields();
+
+       if (!this.validateDates().res){
+           return this.validateDates().res
+       }else {
+           return this.validateFields();
+       }
+
     },
     validateDates:function() {
-        var result = true;
+        var result = {res:true, msg:""}
         var dateBegin = this.lookupReference('dateBegin').value;
         var dateEnd = this.lookupReference('dateEnd').value;
-        if ((dateEnd.getTime()<dateBegin.getTime())||((dateEnd.getTime()-dateBegin.getTime())>90*24*3600*1000)) {
-            result = false;
+        var dateEndInterval = Ext.Date.add(dateBegin,Ext.Date.DAY,90);
+        if ( !Ext.Date.between(dateEnd,dateBegin,dateEndInterval)) {
+            result.res = false;
+            result.msg = "Интервал между датами не должен превышать 90 дней";
         }
         return result;
     },
     validateFields:function() {
-        var result = {res:false}
+        var result = {res:false, msg:"Хотя бы одно поле, кроме дат должно быть заполнено"}
         //var fieldValues = this.lookupReference('optionalFields').getValues();
         Ext.iterate(this.lookupReference('optionalFields').getValues(),function(item, index, array) {
             if (array[item]!='') {
                 this.res=true;
             }
                 },result);
-        return result.res;
+        return result;
     }
 
 
