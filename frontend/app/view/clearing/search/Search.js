@@ -78,16 +78,16 @@ Ext.define('TrxResearch.view.clearing.search.Search', {
             reference:'optionalFields',
             items: [
                 { fieldLabel: 'Полный номер карты',   bind: '{PAN}' ,width:255, maxLength:19 },
-               /* { fieldLabel: 'Тип операции',   bind: '{MTI}', width:255, maxLength:4  },
+                { fieldLabel: 'Тип операции',   bind: '{MTI}', width:255, maxLength:4  },
                 { fieldLabel: 'ICA Эмитента', bind: '{issuerICA}', width:255, maxLength:10  },
                 { fieldLabel: 'BIN Эмитента', bind: '{issuerBIN}', width:255, maxLength:10  },
                 { fieldLabel: 'ICA эквайрера', bind: '{acquirerICA}',width:255, maxLength:6  },
-                { fieldLabel: 'BIN эквайрера', bind: '{acquirerBIN}',width:255, maxLength:6  },*/
-                { fieldLabel: 'ARN', bind: '{ARN}', width:300, maxLength:23  }/*,
-                { fieldLabel: 'Идентификатор операции (BRN, Trx ID)' ,bind: '{}', width:255, maxLength:9  },
+                { fieldLabel: 'BIN эквайрера', bind: '{acquirerBIN}',width:255, maxLength:6  },
+                { fieldLabel: 'ARN', bind: '{ARN}', width:300, maxLength:23  },
+                { fieldLabel: 'Идентификатор операции (BRN, Trx ID)' ,bind: '{txnF63_2}', width:255, maxLength:9  },
                 //TODO: выяснить, какое название параметра передавать для Идентификатор операции (BRN, Trx ID)
                 { fieldLabel: 'МСС', bind: '{MCC}',width:255, maxLength:4  },
-                { fieldLabel: 'Идентифиатор терминала', bind: '{terminalId}',width:255, maxLength:8  }*/
+                { fieldLabel: 'Идентифиатор терминала', bind: '{terminalId}',width:255, maxLength:8  }
             ]
         },
         {

@@ -25,20 +25,20 @@ Ext.define('TrxResearch.view.main.MainModel', {
     formulas: {
         filters: {
             bind: {
-                PAN: '{PAN}',
                 dateBegin: '{dateBegin}',
                 dateEnd: '{dateEnd}',
-             /*   MTI: '{MTI}',
+                PAN: '{PAN}',
+                MTI: '{MTI}',
                 issuerICA: '{issuerICA}',
                 issuerBIN: '{issuerBIN}',
                 acquirerId: '{acquirerId}',
                 RRN: '{RRN}',
-                opId: '{opId}',
+                txnF63_2: '{txnF63_2}',
                 MCC: '{MCC}',
-                terminalId: '{terminalId}',*/
-                ARN:'{ARN}'/*,
+                terminalId: '{terminalId}',
+                ARN:'{ARN}',
                 acquirerICA:'{acquirerICA}',
-                acquirerBIN:'{acquirerBIN}'*/
+                acquirerBIN:'{acquirerBIN}'
 
 
 
