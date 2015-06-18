@@ -1,3 +1,11 @@
+Ext.Ajax.on('requestexception', function(connection, response, options) {
+    //alert(response.status)
+    if(response.status == 401){
+      //  alert("Alyarma!");
+        TrxResearch.getApplication().getController('Root@TrxResearch.controller').onShowLogin()
+    }
+
+});
 //@charset UTF-8
 /**
  *

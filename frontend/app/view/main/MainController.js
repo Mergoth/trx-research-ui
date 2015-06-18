@@ -10,5 +10,12 @@ Ext.define('TrxResearch.view.main.MainController', {
         'Ext.window.MessageBox'
     ],
 
-    alias: 'controller.main'
+    alias: 'controller.main',
+
+    onLogout: function () {
+        TrxResearch.getApplication().getController('Root@TrxResearch.controller').onClose();
+        Ext.getBody().mask();
+        TrxResearch.getApplication().getController('Root@TrxResearch.controller').onLaunch();
+    }
+
 });

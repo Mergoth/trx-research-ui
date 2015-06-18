@@ -36,8 +36,14 @@
     </bean>
 
 
+
     <!--CAMEL <camel:simple>Basic ${header.NspkSearchServiceUsername}:{header.NspkSearchServicePassword}</camel:simple>-->
     <camelContext id="trxresearch-ui-backend-context" trace="true" xmlns="http://camel.apache.org/schema/blueprint">
+        <camel:dataFormats>
+            <camel:xmljson id="xmljson"/>
+            <camel:xmljson id="xmljsonWithOptions" forceTopLevelObject="false" trimSpaces="true" rootName="newRoot" skipNamespaces="true"
+                           removeNamespacePrefixes="true" expandableProperties="d e"/>
+        </camel:dataFormats>
         <camel:route id="trxui-authenticate">
             <camel:from uri="servlet:///authenticate?servletName=CamelServlet&amp;matchOnUriPrefix=true"/>
 
@@ -52,11 +58,31 @@
         <camel:route id="trxui-search">
             <camel:from uri="servlet:///searchService/?servletName=CamelServlet&amp;matchOnUriPrefix=true"/>
             <camel:process ref="credentialsApplier"/>
-            <camel:setHeader headerName="CamelHttpUri">
-                <camel:simple>http://{{nspk-search-service.host}}:{{nspk-search-service.port}}{{nspk-search-service.ctx}}/${header.CamelHttpPath}?authMethod=Basic&amp;authUsername=${header.NspkSearchServiceUsername}&amp;authPassword=${header.NspkSearchServicePassword}&amp;httpClient.authenticationPreemptive=true&amp;bridgeEndpoint=true&amp;throwExceptionOnFailure=false</camel:simple>
-            </camel:setHeader>
-            <camel:log loggingLevel="INFO" logName="su.msk.jet.nspk" message="trxui-route -> done"/>
-            <camel:to uri="http://stubPath:stubPort"/>
+            <choice>
+                <when>
+                    <simple>${header.CamelHttpResponseCode} == '401'</simple>
+                    <camel:setBody>
+                        <simple>Not Authorized</simple>
+                    </camel:setBody>
+                    <camel:to uri="mock:result"/>
+                </when>
+                <otherwise>
+                    <camel:setHeader headerName="CamelHttpUri">
+                        <camel:simple>http://{{nspk-search-service.host}}:{{nspk-search-service.port}}{{nspk-search-service.ctx}}/${header.CamelHttpPath}?authMethod=Basic&amp;authUsername=${header.NspkSearchServiceUsername}&amp;authPassword=${header.NspkSearchServicePassword}&amp;httpClient.authenticationPreemptive=true&amp;bridgeEndpoint=true&amp;throwExceptionOnFailure=false</camel:simple>
+                    </camel:setHeader>
+
+                    <camel:to uri="http://{{nspk-search-service.host}}:{{nspk-search-service.port}}{{nspk-search-service.ctx}}?throwExceptionOnFailure=false&amp;bridgeEndpoint=true"/>
+                   <camel:removeHeader headerName="WWW-Authenticate">
+
+                   </camel:removeHeader>
+                    <when>
+                        <simple>${header.CamelHttpResponseCode} == '200'</simple>
+                        <camel:marshal ref="xmljsonWithOptions"/>
+                        <camel:setHeader headerName="Content-Type"><camel:constant>application/json</camel:constant></camel:setHeader>
+                    </when>
+                    <camel:log loggingLevel="INFO" logName="su.msk.jet.nspk" message="trxui-route -> done"/>
+                </otherwise>
+            </choice>
         </camel:route>
 
         <camel:route id="trxui-details">

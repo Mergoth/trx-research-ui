@@ -11,7 +11,7 @@ Ext.define('TrxResearch.view.login.Login', {
     
     controller: 'login',
     bodyPadding: 10,
-    title: 'Login - Transaction Research',
+    title: 'Вход в систему - Transaction Research',
     closable: false,
     
     cls: 'login',
@@ -23,7 +23,7 @@ Ext.define('TrxResearch.view.login.Login', {
             xtype: 'textfield',
             name: 'username',
             bind: '{username}',
-            fieldLabel: 'Username',
+            fieldLabel: 'Логин',
             allowBlank: false,
             enableKeyEvents: true,
             listeners: {
@@ -33,7 +33,7 @@ Ext.define('TrxResearch.view.login.Login', {
             xtype: 'textfield',
             name: 'password',
             inputType: 'password',
-            fieldLabel: 'Password',
+            fieldLabel: 'Пароль',
             allowBlank: false,
             enableKeyEvents: true,
             cls: 'password',
@@ -44,7 +44,7 @@ Ext.define('TrxResearch.view.login.Login', {
     },
 
     buttons: [{
-        text: 'Login',
+        text: 'Вход',
         listeners: {
             click: 'onLoginClick'
         }

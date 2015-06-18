@@ -69,6 +69,20 @@
             <version>4.1.3</version>
             <type>bundle</type>
         </dependency>-->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-xmljson</artifactId>
+            <version>${camel.version}</version>
+            <!-- Use the same version as camel-core, but remember that this component is only available from 2.10 onwards -->
+        </dependency>
+
+        <!-- And also XOM must be included. XOM cannot be included by default due to an incompatible
+        license with ASF; so add this manually -->
+        <dependency>
+            <groupId>xom</groupId>
+            <artifactId>xom</artifactId>
+            <version>1.2.5</version>
+        </dependency>
 
     </dependencies>
 

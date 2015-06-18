@@ -5,11 +5,11 @@
 Ext.define('TrxResearch.controller.Root', {
     extend: 'Ext.app.Controller',
     
-    loadingText: 'Loading...',
+    loadingText: 'Загрузка...',
     
     onLaunch: function () {
         if (Ext.isIE8) {
-            Ext.Msg.alert('Not Supported', 'This example is not supported on Internet Explorer 8. Please use a different browser.');
+            Ext.Msg.alert('Не поддерживается', 'Это приложение не поддерживает браузеры Internet Explorer 8 и ранее. Пожалуйста, используёте другой браузер.');
             return;
         }
         
@@ -25,6 +25,18 @@ Ext.define('TrxResearch.controller.Root', {
                 login: 'onLogin'
             }
         });
+    },
+
+    onShowLogin: function () {
+        Ext.getBody().mask();
+        Ext.Msg.alert('Ошибка ' +
+            'Ошибка аутентификации', 'Вы ввели неправильный логин/пароль или сессия истекла. Необходимо авторизоваться снова', function() {
+                //this.getView().close();
+                this.onLaunch();
+            },this
+        );
+
+        //this.viewport = this.login;
     },
 
     /**
@@ -58,5 +70,11 @@ Ext.define('TrxResearch.controller.Root', {
     
     getSession: function() {
         return this.session;
+    },
+
+    onClose: function() {
+        this.viewport.destroy();
+        this.viewport=null;
+        this.session=null;
     }
 });

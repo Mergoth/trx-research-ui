@@ -16,10 +16,13 @@ Ext.define('TrxResearch.view.main.MainModel', {
         issuerBIN: null,
         acquirerId: null,
         RRN: null,
+        txnF63_2: null,
         opId: null,
         MCC: null,
         terminalId: null,
-        ARN:null
+        ARN:null,
+        acquirerICA:null,
+        acquirerBIN:null
     },
 
     formulas: {
@@ -27,23 +30,18 @@ Ext.define('TrxResearch.view.main.MainModel', {
             bind: {
                 dateBegin: '{dateBegin}',
                 dateEnd: '{dateEnd}',
-                PAN: '{PAN}',
-                MTI: '{MTI}',
-                issuerICA: '{issuerICA}',
-                issuerBIN: '{issuerBIN}',
-                acquirerId: '{acquirerId}',
-                RRN: '{RRN}',
-                txnF63_2: '{txnF63_2}',
-                MCC: '{MCC}',
-                terminalId: '{terminalId}',
-                ARN:'{ARN}',
-                acquirerICA:'{acquirerICA}',
-                acquirerBIN:'{acquirerBIN}'
-
-
-
-
-
+                PAN: '{PAN}'.trim(),
+                MTI: '{MTI}'.trim(),
+                issuerICA: '{issuerICA}'.trim(),
+                issuerBIN: '{issuerBIN}'.trim(),
+                acquirerId: '{acquirerId}'.trim(),
+                RRN: '{RRN}'.trim(),
+                txnF63_2: '{txnF63_2}'.trim(),
+                MCC: '{MCC}'.trim(),
+                terminalId: '{terminalId}'.trim(),
+                ARN:'{ARN}'.trim(),
+                acquirerICA:'{acquirerICA}'.trim(),
+                acquirerBIN:'{acquirerBIN}'.trim()
             },
             get: function(filters) {
                 Ext.Object.each(filters, function(k, v, o) {

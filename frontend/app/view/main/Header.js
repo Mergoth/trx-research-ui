@@ -19,5 +19,12 @@ Ext.define('TrxResearch.view.main.Header', {
         cls: 'app-header-title',
         bind: '{title}',
         flex: 1
-    }]
+    },{
+       xtype: 'button',
+       text     : 'Выход',
+        listeners: {
+            click: 'onLogout'
+        }
+    }
+    ]
 });

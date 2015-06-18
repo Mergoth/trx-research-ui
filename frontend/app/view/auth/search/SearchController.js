@@ -6,17 +6,16 @@ Ext.define('TrxResearch.view.auth.search.SearchController', {
     alias: 'controller.trxresearch-auth-search',
 
     onSearchClick: function() {
+       //Ext.Ajax.fireEvent('requestexception',null, {status:401}, null);
         this.getViewModel().getParent().getStore('auth_records').removeAll();
         if (this.validateSearchFields()) {
             this.getViewModel().getParent().getStore('auth_records').load({params: this.getViewModel().get('filters'),callback: function(records, operation, success) {
                 //the operation object contains all of the details of the load operation
+                if (!records || records.length == 0) {
+
+                }
                 console.log(records);
             }});
-        }else {
-            Ext.Msg.alert('Ошибка заполнения полей', 'Хотя бы одно поле, кроме дат должно быть заполнено', function() {
-
-                },this
-            );
         }
     },
 
@@ -38,19 +37,29 @@ Ext.define('TrxResearch.view.auth.search.SearchController', {
         var dateEnd = this.lookupReference('dateEnd').value;
         var dateEndInterval = Ext.Date.add(dateBegin,Ext.Date.DAY,90);
         if ( !Ext.Date.between(dateEnd,dateBegin,dateEndInterval)) {
+            Ext.Msg.alert('Ошибка заполнения полей', 'Максимальный интервал дат в рамках одного запроса не должен превышать 90 календарных дней.', function() {
+
+                },this
+            );
             result = false;
         }
         return result;
     },
     validateFields:function() {
-        var result = {res:false}
+        var result = false;
         //var fieldValues = this.lookupReference('optionalFields').getValues();
         Ext.iterate(this.lookupReference('optionalFields').getValues(),function(item, index, array) {
             if (array[item]!='') {
-                this.res=true;
+                result=true;
             }
                 },result);
-        return result.res;
+        if (!result) {
+            Ext.Msg.alert('Ошибка заполнения полей', 'Хотя бы одно поле, кроме дат должно быть заполнено', function() {
+
+                },this
+            );
+        }
+        return result;
     }
 
 

@@ -4,8 +4,6 @@
 	xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.0.0 http://karaf.apache.org/xmlns/features/v1.0.0"
 	name="TRXREsearchUI">
 
-
-
         <feature name="trx-research-ui-backend" version="${trx-research-ui-backend.version}" description="TRX Research UI Backend">
 			<configfile finalname="etc/su.msk.jet.nspk.trxUIProps.cfg">mvn:su.msk.jet.nspk/ui-backend/${trx-research-ui-backend.version}/cfg</configfile>
         	<feature>camel-jackson</feature>
@@ -18,6 +16,6 @@
 		<feature name="trx-research-ui-frontend" version="${trx-research-ui-frontend.version}"
 				 description="TRX Research UI Frontend">
 			<feature version="${trx-research-ui-backend.version}">trx-research-ui-backend</feature>
-			<bundle>mvn:su.msk.jet.nspk/ui-frontend/${trx-research-ui-frontend.version.version}</bundle>
+			<bundle>mvn:su.msk.jet.nspk/ui-frontend/${trx-research-ui-frontend.version}/war</bundle>
 		</feature>
 </features>

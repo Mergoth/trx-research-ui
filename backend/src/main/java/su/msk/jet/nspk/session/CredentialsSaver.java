@@ -22,7 +22,7 @@ public class CredentialsSaver implements Processor {
         
         String username = message.getHeader(AuthenticationParams.USERNAME, String.class);
         String password = message.getHeader(AuthenticationParams.PASSWORD, String.class);
-        
+        log.debug("Save session attributes. Session {}, username: {}",session.getId(),username);
         session.setAttribute(SessionParams.USERNAME, username);
         session.setAttribute(SessionParams.PASSWORD, password);
         exchange.getIn().setBody(new User(username));

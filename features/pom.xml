@@ -9,15 +9,9 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		
-		<!-- Features -->
-		<beepayxp-datasource.version>0.0.1</beepayxp-datasource.version>
-		<beepayxp-paymentgate.version>0.0.1</beepayxp-paymentgate.version>
-		
 		<fuse.version.suffix>redhat-60065</fuse.version.suffix>
 		<camel.version>2.10.0.${fuse.version.suffix}</camel.version>
 		<cxf.version>2.6.0.${fuse.version.suffix}</cxf.version>
-
 	</properties>
 
 	<parent>
@@ -28,10 +22,16 @@
 	</parent>
 
 	<artifactId>features</artifactId>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 
 	<name>TRX Research UI Features</name>
 
+	<modules>
+		<module>../frontend</module>
+		<module>../backend</module>
+
+
+	</modules>
 	<build>
 		<resources>
             <resource>

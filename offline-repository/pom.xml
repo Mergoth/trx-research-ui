@@ -3,6 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
 
 	<parent>
 		<groupId>su.msk.jet.nspk</groupId>
@@ -18,9 +19,12 @@
 			<groupId>su.msk.jet.nspk</groupId>
 			<artifactId>features</artifactId>
 			<version>1.0</version>
+			<type>pom</type>
 		</dependency>
-
 	</dependencies>
+	<modules>
+		<module>../features</module>
+	</modules>
 	<build>
 		<plugins>
 			<plugin>
